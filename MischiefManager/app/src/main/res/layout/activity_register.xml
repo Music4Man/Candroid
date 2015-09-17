@@ -7,7 +7,7 @@
     tools:context="com.candroid.mischiefmanager.Register">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Name"
@@ -18,16 +18,16 @@
         android:layout_alignStart="@+id/EvilNickname" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editName"
         android:layout_below="@+id/Name"
         android:layout_alignLeft="@+id/EvilNickname"
-        android:layout_alignRight="@+id/editUsername"
-        android:layout_alignEnd="@+id/editUsername" />
+        android:layout_alignRight="@+id/EvilNickname"
+        android:layout_alignEnd="@+id/EvilNickname" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Surname"
@@ -37,16 +37,16 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editSurname"
         android:layout_below="@+id/Surname"
-        android:layout_alignLeft="@+id/Name"
-        android:layout_alignRight="@+id/editName"
-        android:layout_alignEnd="@+id/editName" />
+        android:layout_alignLeft="@+id/Surname"
+        android:layout_alignRight="@+id/Surname"
+        android:layout_alignEnd="@+id/Surname" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Age"
@@ -56,16 +56,16 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editAge"
         android:layout_below="@+id/Age"
-        android:layout_alignLeft="@+id/Name"
-        android:layout_alignRight="@+id/editName"
-        android:layout_alignEnd="@+id/editName" />
+        android:layout_alignLeft="@+id/Age"
+        android:layout_alignRight="@+id/Age"
+        android:layout_alignEnd="@+id/Age" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Evil Nickname (Username)"
@@ -75,7 +75,7 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editNickName"
         android:layout_below="@+id/EvilNickName"
@@ -83,20 +83,42 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Email"
         android:id="@+id/Email"
+        android:layout_below="@+id/editNickName"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editEmail"
         android:layout_below="@+id/Email"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Licence Agreement Here"
+        android:id="@+id/LicenceText"
+        android:layout_below="@+id/editEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:height="120dp"
+        android:layout_marginTop="26dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agree to Licence Agreement"
+        android:id="@+id/LicenceAgreement"
+        android:checked="false"
+        android:layout_below="@+id/LicenceText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -108,29 +130,6 @@
         android:clickable="true"
         android:nestedScrollingEnabled="false"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/Surname"
-        android:layout_toEndOf="@+id/Surname"
-        android:layout_marginBottom="27dp" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Agree to Licence Agreement"
-        android:id="@+id/LicenceAgreement"
-        android:layout_marginTop="53dp"
-        android:checked="false"
-        android:layout_below="@+id/textView4"
-        android:layout_alignRight="@+id/EvilNickName"
-        android:layout_alignEnd="@+id/EvilNickName" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Licence Agreement Here"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/editEmail"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="26dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
