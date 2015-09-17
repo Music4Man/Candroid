@@ -8,4 +8,17 @@
     <string name="title_activity_selfie_manager">SelfieManager</string>
     <string name="title_activity_main_screen">MainScreen</string>
     <string name="title_activity_register">Register</string>
+    <string name="login">Login</string>
+    <string name="EvilNickname">Evil Nickname</string>
+    <string name="Password">Password</string>
+    <string name="ConfPassword">Confirm Password</string>
+    <string name="RegisterHere">Register Here</string>
+    <string name="Name">Name</string>
+    <string name="Surname">Surname</string>
+    <string name="Age">Age</string>
+    <string name="Email">Email</string>
+    <string name="Licence">Licence Agreement Here...</string>
+    <string name="Agree">Agree to Licence Agreement</string>
+    <string name="RegisterButton">Register</string>
+
 </resources>
