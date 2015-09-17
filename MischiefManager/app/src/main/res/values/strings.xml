@@ -6,4 +6,6 @@
     <string name="title_activity_to_do">ToDo</string>
     <string name="title_activity_journal">Journal</string>
     <string name="title_activity_selfie_manager">SelfieManager</string>
+    <string name="title_activity_main_screen">MainScreen</string>
+    <string name="title_activity_register">Register</string>
 </resources>

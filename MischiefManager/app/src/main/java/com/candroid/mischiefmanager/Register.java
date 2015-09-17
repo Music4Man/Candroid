@@ -1,6 +1,5 @@
 package com.candroid.mischiefmanager;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,13 +7,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Register extends AppCompatActivity implements View.OnClickListener{
 
-    Button loginButton;
-    EditText editNickName, editPassword;
-    TextView registerLink;
+    Button registerButton;
+    EditText editName, editNickName, editAge, editSurname, editEmail, editPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +20,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
        // addButtonListener();
 
         editNickName = (EditText) findViewById(R.id.editNickName);
+        editName = (EditText) findViewById(R.id.editName);
+        editAge = (EditText) findViewById(R.id.editAge);
+        editSurname = (EditText) findViewById(R.id.editSurname);
+        editEmail = (EditText) findViewById(R.id.editEmail);
         editPassword = (EditText) findViewById(R.id.editPassword);
-        loginButton = (Button) findViewById(R.id.login);
-        registerLink = (TextView) findViewById(R.id.registerLink);
+        registerButton = (Button) findViewById(R.id.login);
 
-        loginButton.setOnClickListener(this);
-        registerLink.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
     }
 
     @Override
@@ -56,22 +55,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch ((v.getId())){
-            case R.id.login:
-                startActivity(new Intent(Login.this, ToDo.class));
-                break;
-            case R.id.registerLink:
-                startActivity(new Intent(Login.this, Register.class));
+            case R.id.register:
+
                 break;
         }
     }
-
-/* public void addButtonListener()
-    {
-        Button tD = (Button) findViewById(R.id.login);
-
-        tD.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                startActivity(new Intent(Login.this, ToDo.class));
-            }
-    });*/
 }

@@ -1,0 +1,136 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.candroid.mischiefmanager.Register">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Name"
+        android:id="@+id/Name"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/EvilNickname"
+        android:layout_alignStart="@+id/EvilNickname" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editName"
+        android:layout_below="@+id/Name"
+        android:layout_alignLeft="@+id/EvilNickname"
+        android:layout_alignRight="@+id/editUsername"
+        android:layout_alignEnd="@+id/editUsername" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Surname"
+        android:id="@+id/Surname"
+        android:layout_below="@+id/editName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editSurname"
+        android:layout_below="@+id/Surname"
+        android:layout_alignLeft="@+id/Name"
+        android:layout_alignRight="@+id/editName"
+        android:layout_alignEnd="@+id/editName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Age"
+        android:id="@+id/Age"
+        android:layout_below="@+id/editSurname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editAge"
+        android:layout_below="@+id/Age"
+        android:layout_alignLeft="@+id/Name"
+        android:layout_alignRight="@+id/editName"
+        android:layout_alignEnd="@+id/editName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Evil Nickname (Username)"
+        android:id="@+id/EvilNickName"
+        android:layout_below="@+id/editAge"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editNickName"
+        android:layout_below="@+id/EvilNickName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Email"
+        android:id="@+id/Email"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editEmail"
+        android:layout_below="@+id/Email"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/register"
+        android:clickable="true"
+        android:nestedScrollingEnabled="false"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/Surname"
+        android:layout_toEndOf="@+id/Surname"
+        android:layout_marginBottom="27dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agree to Licence Agreement"
+        android:id="@+id/LicenceAgreement"
+        android:layout_marginTop="53dp"
+        android:checked="false"
+        android:layout_below="@+id/textView4"
+        android:layout_alignRight="@+id/EvilNickName"
+        android:layout_alignEnd="@+id/EvilNickName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Licence Agreement Here"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/editEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="26dp" />
+
+</RelativeLayout>
