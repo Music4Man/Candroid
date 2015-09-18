@@ -1,12 +1,10 @@
 package com.candroid.mischiefmanager.Login;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by Elzahn on 17/09/2015.
@@ -32,7 +31,6 @@ public class ServerRequests {
     ProgressDialog progressDialog;
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
     public static final String SERVER_ADDRESS = "127.0.0.1/Candroid";
-    final String TAG = "ServerRequests";
 
     public ServerRequests(Context context){
         progressDialog = new ProgressDialog(context);
@@ -60,7 +58,7 @@ public class ServerRequests {
             this.callBack = callBack;
         }
 
-        public String excutePost(String targetURL, String urlParameters)
+        public ArrayList<String> excutePost(String targetURL, String urlParameters)
         {
             URL url;
             HttpURLConnection connection = null;
@@ -69,11 +67,9 @@ public class ServerRequests {
                 url = new URL(targetURL);
                 connection = (HttpURLConnection)url.openConnection();
                 connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type",
-                        "application/x-www-form-urlencoded");
+                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-                connection.setRequestProperty("Content-Length", "" +
-                        Integer.toString(urlParameters.getBytes().length));
+                connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
                 connection.setRequestProperty("Content-Language", "en-US");
 
                 connection.setUseCaches(false);
@@ -82,6 +78,7 @@ public class ServerRequests {
 
                 //Send request
                 DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
+
                 wr.writeBytes (urlParameters);
                 wr.flush();
                 wr.close ();
@@ -90,19 +87,29 @@ public class ServerRequests {
                 InputStream is = connection.getInputStream();
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
                 String line;
-                StringBuffer response = new StringBuffer();
+
+                ArrayList<String> returnedArray = new ArrayList<>();
 
                 while((line = rd.readLine()) != null) {
-                    Log.d(TAG, line);
-                    response.append(line);
-                    response.append('\r');
+                    if(!line.equals("[]")) {
+                        String[] temp = line.split(",");
+                        int pos = 13;
+                        int lastPos = temp[0].lastIndexOf('"');
+                        temp[0] = temp[0].substring(pos, lastPos);
+
+                        pos = 12;
+                        lastPos = temp[1].lastIndexOf('"');
+                        temp[1] = temp[1].substring(pos, lastPos);
+
+                        returnedArray.add(temp[0].toString());
+                        returnedArray.add(temp[1].toString());
+                    }
                 }
                 rd.close();
 
-                return response.toString();
+                return returnedArray;
 
             } catch (Exception e) {
-                Log.d(TAG, e.toString());
                 e.printStackTrace();
                 return null;
 
@@ -116,23 +123,22 @@ public class ServerRequests {
 
         @Override
         protected User doInBackground(Void... params) {
-            JSONObject dataToSend = new JSONObject();
+            String dataToSend = null;
 
             try {
-                dataToSend.put("nickname", user.nickname);
-                dataToSend.put("password", user.password);
-
-            } catch (JSONException e) {
+                dataToSend = "nickname=" + URLEncoder.encode(user.nickname, "UTF-8") +
+                        "&password=" + URLEncoder.encode(user.password, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
 
-            String temp = excutePost("http://10.0.2.2:8000/Candroid/fetchUserData.php", dataToSend.toString());
-Log.d(TAG, temp + " temp");
+            ArrayList<String> temp = excutePost("http://10.0.2.2:8000/Candroid/fetchUserData.php", dataToSend);
+
             if(temp.isEmpty()){
                 return null;
             } else {
-                User tempU = new User("f", "d");
-                return tempU;
+                User returnedUser = new User(temp.get(0), temp.get(1));
+                return returnedUser;
             }
         }
 
@@ -193,8 +199,6 @@ Log.d(TAG, temp + " temp");
 
                 int responseCode = connection.getResponseCode();
 
-                //Log.v(Debug.TAG + " reponseCode", String.valueOf(responseCode));
-
                 if (responseCode == HttpURLConnection.HTTP_OK) {
 
                     StringBuilder sb = new StringBuilder();
@@ -230,9 +234,9 @@ Log.d(TAG, temp + " temp");
                 e.printStackTrace();
                 throw new Exception("Internet error");
             } finally {
-
                 connection.disconnect();
             }
+
             return null;
         }
 

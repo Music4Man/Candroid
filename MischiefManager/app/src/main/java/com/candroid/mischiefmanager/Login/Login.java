@@ -17,7 +17,7 @@ import com.candroid.mischiefmanager.ToDo;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
-    Button loginButton;
+    Button loginButton, skipLogin;
     EditText editNickname, editPassword;
     TextView registerLink;
     UserLocalStore userLocalStore;
@@ -30,9 +30,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         editNickname = (EditText) findViewById(R.id.editNickname);
         editPassword = (EditText) findViewById(R.id.editPassword);
         loginButton = (Button) findViewById(R.id.login);
+        skipLogin = (Button) findViewById(R.id.SkipLogin);
         registerLink = (TextView) findViewById(R.id.registerLink);
 
         loginButton.setOnClickListener(this);
+        skipLogin.setOnClickListener(this);
         registerLink.setOnClickListener(this);
 
         userLocalStore = new UserLocalStore(this);
@@ -42,7 +44,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onStart(){
         super.onStart();
         if(authenticate()){
-            //startActivity(new Intent(this, Journal.class));
+            startActivity(new Intent(this, Journal.class));
         }
     }
 
@@ -79,18 +81,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 String nickname = editNickname.getText().toString();
                 String password = editPassword.getText().toString();
 
-                startActivity(new Intent(this, ToDo.class));/*
                 if(nickname.isEmpty() || password.isEmpty()){
                     showErrorMessage();
                 } else if(!nickname.isEmpty() && !password.isEmpty()) {
                     User user = new User(nickname, password);
                     authenticate(user);
-                }*/
+                }
 
                 break;
 
             case R.id.registerLink:
                 startActivity(new Intent(this, Register.class));
+                break;
+
+            case R.id.SkipLogin:
+                startActivity(new Intent(this, ToDo.class));
                 break;
         }
     }
