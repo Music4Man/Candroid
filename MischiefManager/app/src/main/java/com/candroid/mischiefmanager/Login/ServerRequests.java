@@ -1,23 +1,29 @@
 package com.candroid.mischiefmanager.Login;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by Elzahn on 17/09/2015.
@@ -25,7 +31,8 @@ import java.net.URL;
 public class ServerRequests {
     ProgressDialog progressDialog;
     public static final int CONNECTION_TIMEOUT = 1000 * 15;
-    public static final String SERVER_ADDRESS = "http://imy.up.ac.za";
+    public static final String SERVER_ADDRESS = "127.0.0.1/Candroid";
+    final String TAG = "ServerRequests";
 
     public ServerRequests(Context context){
         progressDialog = new ProgressDialog(context);
@@ -53,105 +60,80 @@ public class ServerRequests {
             this.callBack = callBack;
         }
 
-        public String post(JSONObject object) throws Exception {
+        public String excutePost(String targetURL, String urlParameters)
+        {
+            URL url;
             HttpURLConnection connection = null;
-
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
-
-                System.setProperty("http.keepAlive", "false");
-            }
-
             try {
-
-                URL url = new URL("http://"+SERVER_ADDRESS+"FetchUserData.php");
-                connection = (HttpURLConnection) url.openConnection();
-
-
-                connection.setConnectTimeout(CONNECTION_TIMEOUT);
-                connection.setReadTimeout(15000);
+                //Create connection
+                url = new URL(targetURL);
+                connection = (HttpURLConnection)url.openConnection();
                 connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type",
+                        "application/x-www-form-urlencoded");
+
+                connection.setRequestProperty("Content-Length", "" +
+                        Integer.toString(urlParameters.getBytes().length));
+                connection.setRequestProperty("Content-Language", "en-US");
+
+                connection.setUseCaches(false);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 
-                Uri.Builder builder = new Uri.Builder().appendQueryParameter("parametros", object.toString());
+                //Send request
+                DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
+                wr.writeBytes (urlParameters);
+                wr.flush();
+                wr.close ();
 
-                String query = builder.build().getEncodedQuery();
+                //Get Response
+                InputStream is = connection.getInputStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                String line;
+                StringBuffer response = new StringBuffer();
 
-                connection.setFixedLengthStreamingMode(query.getBytes().length);
-
-                OutputStream os = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
-
-                connection.connect();
-
-                int responseCode = connection.getResponseCode();
-
-                //Log.v(Debug.TAG + " reponseCode", String.valueOf(responseCode));
-
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-
-                    StringBuilder sb = new StringBuilder();
-                    try {
-
-                        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                        String linha;
-
-                        while ((linha = br.readLine()) != null) {
-
-                            sb.append(linha);
-                        }
-
-                        return sb.toString();
-                    } catch (Exception e) {
-
-                        e.printStackTrace();
-                    }
-
-                } else {
-
-                    if (responseCode == HttpURLConnection.HTTP_CLIENT_TIMEOUT) {
-
-                        throw new Exception("Timed out: " + connection.getErrorStream());
-                    }
+                while((line = rd.readLine()) != null) {
+                    Log.d(TAG, line);
+                    response.append(line);
+                    response.append('\r');
                 }
+                rd.close();
 
-            } catch (MalformedURLException e) {
+                return response.toString();
 
+            } catch (Exception e) {
+                Log.d(TAG, e.toString());
                 e.printStackTrace();
-            } catch (IOException e) {
+                return null;
 
-                e.printStackTrace();
-                throw new Exception("Internet erro");
             } finally {
 
-                connection.disconnect();
+                if(connection != null) {
+                    connection.disconnect();
+                }
             }
-            return null;
         }
 
         @Override
         protected User doInBackground(Void... params) {
             JSONObject dataToSend = new JSONObject();
+
             try {
                 dataToSend.put("nickname", user.nickname);
+                dataToSend.put("password", user.password);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            try {
-                post(dataToSend);
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            String temp = excutePost("http://10.0.2.2:8000/Candroid/fetchUserData.php", dataToSend.toString());
+Log.d(TAG, temp + " temp");
+            if(temp.isEmpty()){
+                return null;
+            } else {
+                User tempU = new User("f", "d");
+                return tempU;
             }
-            User temp = new User("f","d");
-            return temp;
         }
 
         @Override

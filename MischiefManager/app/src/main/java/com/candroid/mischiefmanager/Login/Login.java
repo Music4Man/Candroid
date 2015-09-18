@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +42,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onStart(){
         super.onStart();
         if(authenticate()){
-            startActivity(new Intent(this, Journal.class));
+            //startActivity(new Intent(this, Journal.class));
         }
     }
 
@@ -80,14 +79,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 String nickname = editNickname.getText().toString();
                 String password = editPassword.getText().toString();
 
-                startActivity(new Intent(this, ToDo.class));
-
+                startActivity(new Intent(this, ToDo.class));/*
                 if(nickname.isEmpty() || password.isEmpty()){
                     showErrorMessage();
                 } else if(!nickname.isEmpty() && !password.isEmpty()) {
                     User user = new User(nickname, password);
                     authenticate(user);
-                }
+                }*/
 
                 break;
 
@@ -102,7 +100,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         serverRequest.fetchUserDataFromServer(user, new GetUserCallBack() {
             @Override
             public void done(User returnedUser) {
-                if(returnedUser == null){
+                if (returnedUser == null) {
                     showErrorMessage();
                 } else {
                     logUserIn(returnedUser);
@@ -121,6 +119,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private void logUserIn(User returnedUser) {
         userLocalStore.storeUserData(returnedUser);
         userLocalStore.setUserLoggedIn(true);
-       // startActivity(new Intent(this, Journal.class));
+        startActivity(new Intent(this, Journal.class));
     }
 }
