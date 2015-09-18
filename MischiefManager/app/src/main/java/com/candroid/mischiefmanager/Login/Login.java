@@ -1,10 +1,12 @@
 package com.candroid.mischiefmanager.Login;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.util.Log;
+import android.view.Menu;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -56,17 +58,33 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        if(userLocalStore.getLoggedIn()){
+            menu.findItem(R.id.action_logout).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_logout).setVisible(false);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch(item.getItemId()) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            //noinspection SimplifiableIfStatement
+            case R.id.action_settings:
+                return true;
+
+            case R.id.action_logout:
+                userLocalStore.clearUserData();
+                userLocalStore.setUserLoggedIn(false);
+                startActivity(new Intent(Login.this, Login.class));
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

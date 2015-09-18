@@ -8,20 +8,38 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.candroid.mischiefmanager.Login.Login;
+import com.candroid.mischiefmanager.Login.UserLocalStore;
+
 public class SelfieManager extends AppCompatActivity {
+
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selfie_manager);
         addButtonListener();
+
+        userLocalStore = new UserLocalStore(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_selfie_manager, menu);
+        getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        if(userLocalStore.getLoggedIn()){
+            menu.findItem(R.id.action_logout).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_logout).setVisible(false);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -29,15 +47,21 @@ public class SelfieManager extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch(item.getItemId()) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            //noinspection SimplifiableIfStatement
+            case R.id.action_settings:
+                return true;
+
+            case R.id.action_logout:
+                userLocalStore.clearUserData();
+                userLocalStore.setUserLoggedIn(false);
+                startActivity(new Intent(SelfieManager.this, Login.class));
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
     public void addButtonListener()
     {
         Button tD = (Button) findViewById(R.id.toDo);

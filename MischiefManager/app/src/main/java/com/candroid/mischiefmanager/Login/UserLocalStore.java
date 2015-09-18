@@ -12,7 +12,6 @@ public class UserLocalStore {
 
     public UserLocalStore(Context context){
         userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
-        setUserLoggedIn(false);
     }
 
     public void storeUserData(User user){
@@ -24,18 +23,6 @@ public class UserLocalStore {
         spEditor.putString("password", user.password);
         spEditor.putInt("age", user.age);
         spEditor.commit();
-    }
-
-    public User getLoggedInUser(){
-        String name = userLocalDatabase.getString("name", "");
-        String surname = userLocalDatabase.getString("surname", "");
-        String nickname = userLocalDatabase.getString("nickname", "");
-        String email = userLocalDatabase.getString("email", "");
-        String password = userLocalDatabase.getString("password", "");
-        int age = userLocalDatabase.getInt("age", -1);
-
-        User storedUser = new User(name, age, nickname, surname, password, email);
-        return storedUser;
     }
 
     public boolean getLoggedIn(){

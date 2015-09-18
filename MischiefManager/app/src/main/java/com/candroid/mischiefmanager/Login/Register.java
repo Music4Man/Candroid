@@ -20,6 +20,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     Button registerButton;
     EditText editName, editNickName, editAge, editSurname, editEmail, editPassword;
     CheckBox agreeCheckBox;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         registerButton.setOnClickListener(this);
 
         registerButton.setEnabled(false);
+
+        userLocalStore = new UserLocalStore(this);
 
         agreeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -60,17 +63,33 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        if(userLocalStore.getLoggedIn()){
+            menu.findItem(R.id.action_logout).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_logout).setVisible(false);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch(item.getItemId()) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            //noinspection SimplifiableIfStatement
+            case R.id.action_settings:
+                return true;
+
+            case R.id.action_logout:
+                userLocalStore.clearUserData();
+                userLocalStore.setUserLoggedIn(false);
+                startActivity(new Intent(Register.this, Login.class));
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
