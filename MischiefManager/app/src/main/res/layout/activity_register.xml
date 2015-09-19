@@ -26,7 +26,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editName"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="30" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -39,7 +40,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editSurname"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="30" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -52,7 +54,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editAge"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="11"
+                android:numeric="integer" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -65,7 +69,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editNickname"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="25" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -78,7 +83,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editEmail"
-                android:inputType="text" />
+                android:inputType="textWebEmailAddress" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -91,7 +96,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editPassword"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:maxLength="20" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -104,7 +110,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editConfPassword"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:maxLength="20" />
 
             <TextView
                 android:layout_width="fill_parent"

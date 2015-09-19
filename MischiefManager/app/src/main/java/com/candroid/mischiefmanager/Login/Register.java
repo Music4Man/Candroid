@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,7 @@ import com.candroid.mischiefmanager.R;
 public class Register extends AppCompatActivity implements View.OnClickListener{
 
     Button registerButton;
-    EditText editName, editNickName, editAge, editSurname, editEmail, editPassword;
+    EditText editName, editNickName, editAge, editSurname, editEmail, editPassword,editConfPassword;
     CheckBox agreeCheckBox;
     UserLocalStore userLocalStore;
 
@@ -33,6 +34,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         editSurname = (EditText) findViewById(R.id.editSurname);
         editEmail = (EditText) findViewById(R.id.editEmail);
         editPassword = (EditText) findViewById(R.id.editPassword);
+        editConfPassword = (EditText) findViewById(R.id.editConfPassword);
         registerButton = (Button) findViewById(R.id.register);
         agreeCheckBox = (CheckBox) findViewById(R.id.LicenceAgreement);
 
@@ -103,26 +105,47 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 String tempAge = editAge.getText().toString();
                 String nickname = editNickName.getText().toString();
                 String email = editEmail.getText().toString();
+                String confEmail = editConfPassword.getText().toString();
                 String password = editPassword.getText().toString();
                 int age = -1;
 
                 if(!tempAge.isEmpty()){
-                    age = Integer.parseInt(editAge.getText().toString());
+                     age = Integer.parseInt(editAge.getText().toString());
                 }
-                if(!name.isEmpty() && !surname.isEmpty() &&!tempAge.isEmpty() && !nickname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    User user = new User(name, age, nickname, surname, password, email);
-                    registerUser(user);
+
+                if(!name.isEmpty() && !confEmail.isEmpty() && !surname.isEmpty() &&!tempAge.isEmpty() && !nickname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                    if(age < 15) {
+                        showErrorMessage("You must be at least 15 to use this app");
+                    } else if(confEmail.equals(password)) {
+                            if(isValidEmail(email)) {
+                                User user = new User(name, age, nickname, surname, password, email);
+                                registerUser(user);
+                            } else {
+                                showErrorMessage("Registration not complete");
+                            }
+                        } else {
+                            showErrorMessage("Passwords don't match");
+                        }
                 } else {
-                    showErrorMessage();
+                    showErrorMessage("Please fill in all boxes");
                 }
 
                 break;
         }
     }
 
-    private void showErrorMessage(){
+    public final boolean isValidEmail(CharSequence target) {
+        if(!TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches() == false) {
+            showErrorMessage("Please enter a valid email address");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void showErrorMessage(String message){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Register.this);
-        dialogBuilder.setMessage("Please fill in all the boxes");
+        dialogBuilder.setMessage(message);
         dialogBuilder.setPositiveButton("OK", null);
         dialogBuilder.show();
     }
@@ -132,7 +155,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         serverRequest.storeUserDataToServer(user, new GetUserCallBack() {
             @Override
             public void done(User returnedUser) {
-                startActivity(new Intent(Register.this, Journal.class));
+                startActivity(new Intent(Register.this, Login.class));
             }
         });
     }
