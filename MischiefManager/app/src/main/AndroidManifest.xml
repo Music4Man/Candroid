@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.candroid.mischiefmanager" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -33,6 +33,10 @@
         <activity
             android:name=".Login.Register"
             android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name=".Login.ManageProfile"
+            android:label="@string/title_activity_manage_profile" >
         </activity>
     </application>
 

@@ -1,10 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    tools:context="com.candroid.mischiefmanager.Login.Register">
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.candroid.mischiefmanager.Login.ManageProfile">
 
     <ScrollView
         android:layout_height="fill_parent"
@@ -13,7 +13,9 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -113,33 +115,16 @@
                 android:inputType="textPassword"
                 android:maxLength="20" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Licence"
-                android:id="@+id/LicenceText"
-                android:height="120dp"
-                android:layout_marginTop="26dp" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Agree"
-                android:id="@+id/LicenceAgreement"
-                android:checked="false" />
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/RegisterButton"
-                android:id="@+id/register"
+                android:text="@string/updateProfile"
+                android:id="@+id/updateProfile"
                 android:clickable="true"
                 android:nestedScrollingEnabled="false"
                 android:layout_marginTop="50dp"
-                android:layout_marginLeft="130dp"/>
-
+                android:layout_marginLeft="100dp"/>
         </LinearLayout>
     </ScrollView>
-
 
 </RelativeLayout>

@@ -83,7 +83,6 @@ public class ServerRequests {
             ArrayList<String> returnedArray = new ArrayList<>();
 
             while((line = rd.readLine()) != null) {
-                Log.d("Register", line);
                 if(!line.equals("[]")) {
                     String[] temp = line.split(",");
                     int pos = 13;
@@ -94,8 +93,28 @@ public class ServerRequests {
                     lastPos = temp[1].lastIndexOf('"');
                     temp[1] = temp[1].substring(pos, lastPos);
 
-                    returnedArray.add(temp[0].toString());
-                    returnedArray.add(temp[1].toString());
+                    pos = 7;
+                    lastPos = temp[2].lastIndexOf('"');
+                    temp[2] = temp[2].substring(pos, lastPos);
+
+                    pos = 9;
+                    lastPos = temp[3].lastIndexOf('"');
+                    temp[3] = temp[3].substring(pos, lastPos);
+
+                    pos = 11;
+                    lastPos = temp[4].lastIndexOf('"');
+                    temp[4] = temp[4].substring(pos, lastPos);
+
+                    pos = 8;
+                    lastPos = temp[5].lastIndexOf('"');
+                    temp[5] = temp[5].substring(pos, lastPos);
+
+                    returnedArray.add(temp[0]);
+                    returnedArray.add(temp[1]);
+                    returnedArray.add(temp[2]);
+                    returnedArray.add(temp[3]);
+                    returnedArray.add(temp[4]);
+                    returnedArray.add(temp[5]);
                 }
             }
             rd.close();
@@ -139,7 +158,7 @@ public class ServerRequests {
             if(temp.isEmpty()){
                 return null;
             } else {
-                User returnedUser = new User(temp.get(0), temp.get(1));
+                User returnedUser = new User(temp.get(5), Integer.parseInt(temp.get(2)), temp.get(0), temp.get(4), temp.get(1), temp.get(3));
                 return returnedUser;
             }
         }

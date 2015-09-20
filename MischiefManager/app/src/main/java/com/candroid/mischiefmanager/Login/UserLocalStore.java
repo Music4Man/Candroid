@@ -2,16 +2,29 @@ package com.candroid.mischiefmanager.Login;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 /**
  * Created by Elzahn on 17/09/2015.
  */
 public class UserLocalStore {
-    public static final String SP_NAME="userDetails";
+    public static final String SP_NAME = "userDetails";
     SharedPreferences userLocalDatabase;
 
     public UserLocalStore(Context context){
         userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
+    }
+
+    public User getLoggedInUser(){
+        String name = userLocalDatabase.getString("name", "");
+        String surname = userLocalDatabase.getString("surname", "");
+        String nickname = userLocalDatabase.getString("nickname", "");
+        String email = userLocalDatabase.getString("email", "");
+        String password = userLocalDatabase.getString("password", "");
+        int age = userLocalDatabase.getInt("age", -1);
+
+        return new User(name, age, nickname, surname, password, email);
+
     }
 
     public void storeUserData(User user){

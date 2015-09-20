@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.candroid.mischiefmanager.Login.Login;
+import com.candroid.mischiefmanager.Login.ManageProfile;
 import com.candroid.mischiefmanager.Login.UserLocalStore;
 
 public class Journal extends AppCompatActivity {
@@ -36,8 +37,10 @@ public class Journal extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu){
         if(userLocalStore.getLoggedIn()){
             menu.findItem(R.id.action_logout).setVisible(true);
+            menu.findItem(R.id.action_manage_profile).setVisible(true);
         } else {
             menu.findItem(R.id.action_logout).setVisible(false);
+            menu.findItem(R.id.action_manage_profile).setVisible(false);
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -58,6 +61,10 @@ public class Journal extends AppCompatActivity {
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
                 startActivity(new Intent(Journal.this, Login.class));
+                break;
+
+            case R.id.action_manage_profile:
+                startActivity(new Intent(Journal.this, ManageProfile.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
