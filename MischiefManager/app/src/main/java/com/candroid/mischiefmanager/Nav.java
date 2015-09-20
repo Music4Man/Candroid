@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
+import com.candroid.mischiefmanager.Menu.Callendar_Fragment;
+import com.candroid.mischiefmanager.Menu.Logout_Fragment;
 import com.candroid.mischiefmanager.Menu.Selfie_Fragment;
 import com.candroid.mischiefmanager.Menu.ToDo_Fragment;
 import com.candroid.mischiefmanager.Menu.Journal_Fragment;
@@ -59,6 +61,12 @@ public class Nav extends AppCompatActivity
             case 2:
                 objFragment = new ToDo_Fragment();
                 break;
+            case 3:
+                objFragment = new Callendar_Fragment();
+                break;
+            case 4:
+                objFragment = new Logout_Fragment();
+                break;
         }
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -77,6 +85,12 @@ public class Nav extends AppCompatActivity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
+                break;
+            case 4:
+                mTitle = getString(R.string.title_section4);
+                break;
+            case 5:
+                mTitle = getString(R.string.title_section5);
                 break;
         }
     }
