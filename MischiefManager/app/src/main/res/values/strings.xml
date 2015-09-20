@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Mischief Manager</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
     <string name="title_activity_to_do">ToDo</string>
@@ -21,5 +19,15 @@
     <string name="Licence">Licence Agreement Here...</string>
     <string name="Agree">Agree to Licence Agreement</string>
     <string name="RegisterButton">Register</string>
+    <string name="title_activity_nav">Mischief Manager</string>
+
+    <string name="title_section1">Journal</string>
+    <string name="title_section2">Selfie Manager</string>
+    <string name="title_section3">To Do</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example"></string>
 
 </resources>
