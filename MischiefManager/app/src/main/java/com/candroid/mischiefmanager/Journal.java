@@ -21,7 +21,6 @@ public class Journal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
-        addButtonListener();
 
         userLocalStore = new UserLocalStore(this);
     }
@@ -69,21 +68,4 @@ public class Journal extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void addButtonListener()
-    {
-        Button tD = (Button) findViewById(R.id.toDo);
-
-        tD.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                startActivity(new Intent(Journal.this, ToDo.class));
-            }
-        });
-        Button sM = (Button) findViewById(R.id.selfieManager);
-
-        sM.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                startActivity(new Intent(Journal.this, SelfieManager.class));
-            }
-        });
-}}
+}

@@ -37,6 +37,10 @@
         <activity
             android:name=".Login.ManageProfile"
             android:label="@string/title_activity_manage_profile" >
+	</activity>
+	<activity>
+            android:name=".Nav"
+            android:label="@string/title_activity_nav" >
         </activity>
     </application>
 

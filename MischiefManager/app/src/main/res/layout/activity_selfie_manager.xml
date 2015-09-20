@@ -15,24 +15,4 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="To Do"
-        android:id="@+id/toDo"
-        android:layout_above="@+id/journal"
-        android:layout_alignRight="@+id/journal"
-        android:layout_alignEnd="@+id/journal"
-        android:layout_alignLeft="@+id/journal"
-        android:layout_alignStart="@+id/journal" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Journal"
-        android:id="@+id/journal"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

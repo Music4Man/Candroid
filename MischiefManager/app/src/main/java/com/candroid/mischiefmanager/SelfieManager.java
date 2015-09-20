@@ -19,7 +19,6 @@ public class SelfieManager extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selfie_manager);
-        addButtonListener();
 
         userLocalStore = new UserLocalStore(this);
     }
@@ -61,21 +60,4 @@ public class SelfieManager extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void addButtonListener()
-    {
-        Button tD = (Button) findViewById(R.id.toDo);
-
-        tD.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                startActivity(new Intent(SelfieManager.this, ToDo.class));
-            }
-        });
-        Button J = (Button) findViewById(R.id.journal);
-
-        J.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                startActivity(new Intent(SelfieManager.this, Journal.class));
-            }
-        });
-}}
+}

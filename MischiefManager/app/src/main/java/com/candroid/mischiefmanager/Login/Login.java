@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.candroid.mischiefmanager.Journal;
+import com.candroid.mischiefmanager.Nav;
 import com.candroid.mischiefmanager.R;
 import com.candroid.mischiefmanager.ToDo;
 
@@ -46,7 +47,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onStart(){
         super.onStart();
         if(authenticate()){
-            startActivity(new Intent(this, Journal.class));
+            startActivity(new Intent(this, Nav.class));
         }
     }
 
@@ -113,7 +114,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case R.id.SkipLogin:
-                startActivity(new Intent(this, ToDo.class));
+                startActivity(new Intent(this, Nav.class));
                 break;
         }
     }
@@ -134,7 +135,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private void showErrorMessage(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Login.this);
-        dialogBuilder.setMessage("Incorrent login details");
+        dialogBuilder.setMessage("Incorrect login details");
         dialogBuilder.setPositiveButton("OK", null);
         dialogBuilder.show();
     }
@@ -142,6 +143,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private void logUserIn(User returnedUser) {
         userLocalStore.storeUserData(returnedUser);
         userLocalStore.setUserLoggedIn(true);
-        startActivity(new Intent(this, Journal.class));
+        startActivity(new Intent(this, Nav.class));
     }
 }
