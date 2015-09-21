@@ -28,8 +28,10 @@
     <string name="title_section2">Selfie Manager</string>
     <string name="title_section3">To Do</string>
     <string name="title_section4">Calendar</string>
+
     <string name="title_section5">Map</string>
     <string name="title_section6">Logout</string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
