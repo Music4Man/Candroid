@@ -15,14 +15,11 @@ import com.candroid.mischiefmanager.Login.UserLocalStore;
 
 public class Journal extends AppCompatActivity {
 
-    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
-
-        userLocalStore = new UserLocalStore(this);
     }
 
     @Override
@@ -30,19 +27,6 @@ public class Journal extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        if(userLocalStore.getLoggedIn()){
-            menu.findItem(R.id.action_logout).setVisible(true);
-            menu.findItem(R.id.action_manage_profile).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_logout).setVisible(false);
-            menu.findItem(R.id.action_manage_profile).setVisible(false);
-        }
-
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -55,16 +39,6 @@ public class Journal extends AppCompatActivity {
             //noinspection SimplifiableIfStatement
             case R.id.action_settings:
                 return true;
-
-            case R.id.action_logout:
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
-                startActivity(new Intent(Journal.this, Login.class));
-                break;
-
-            case R.id.action_manage_profile:
-                startActivity(new Intent(Journal.this, ManageProfile.class));
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

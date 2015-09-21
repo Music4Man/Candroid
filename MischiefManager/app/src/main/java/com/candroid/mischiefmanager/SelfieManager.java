@@ -13,14 +13,10 @@ import com.candroid.mischiefmanager.Login.UserLocalStore;
 
 public class SelfieManager extends AppCompatActivity {
 
-    UserLocalStore userLocalStore;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selfie_manager);
-
-        userLocalStore = new UserLocalStore(this);
     }
 
     @Override
@@ -28,17 +24,6 @@ public class SelfieManager extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        if(userLocalStore.getLoggedIn()){
-            menu.findItem(R.id.action_logout).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_logout).setVisible(false);
-        }
-
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -51,12 +36,6 @@ public class SelfieManager extends AppCompatActivity {
             //noinspection SimplifiableIfStatement
             case R.id.action_settings:
                 return true;
-
-            case R.id.action_logout:
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
-                startActivity(new Intent(SelfieManager.this, Login.class));
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

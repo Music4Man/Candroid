@@ -63,18 +63,6 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        if(userLocalStore.getLoggedIn()){
-            menu.findItem(R.id.action_logout).setVisible(true);
-            menu.findItem(R.id.action_manage_profile).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_logout).setVisible(false);
-        }
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_manage_profile, menu);
@@ -92,16 +80,6 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
             //noinspection SimplifiableIfStatement
             case R.id.action_settings:
                 return true;
-
-            case R.id.action_logout:
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
-                startActivity(new Intent(ManageProfile.this, Login.class));
-                break;
-
-            case R.id.action_manage_profile:
-                startActivity(new Intent(ManageProfile.this, ManageProfile.class));
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

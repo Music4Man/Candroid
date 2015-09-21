@@ -65,17 +65,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        if(userLocalStore.getLoggedIn()){
-            menu.findItem(R.id.action_logout).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_logout).setVisible(false);
-        }
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -85,12 +74,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             //noinspection SimplifiableIfStatement
             case R.id.action_settings:
                 return true;
-
-            case R.id.action_logout:
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
-                startActivity(new Intent(Register.this, Login.class));
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

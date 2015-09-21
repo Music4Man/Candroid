@@ -48,8 +48,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onStart();
         if(authenticate()){
             startActivity(new Intent(this, Nav.class));
-        } else {
-            //startActivity(new Intent(this, Login.class));
         }
     }
 
@@ -58,17 +56,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        if(userLocalStore.getLoggedIn()){
-            menu.findItem(R.id.action_logout).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_logout).setVisible(false);
-        }
-
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -81,12 +68,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             //noinspection SimplifiableIfStatement
             case R.id.action_settings:
                 return true;
-
-            case R.id.action_logout:
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
-                startActivity(new Intent(Login.this, Login.class));
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
