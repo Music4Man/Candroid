@@ -30,13 +30,11 @@ import java.util.ArrayList;
  */
 public class ServerRequests {
     ProgressDialog progressDialog;
-    public static final int CONNECTION_TIMEOUT = 1000 * 15;
-    public static final String SERVER_ADDRESS = "127.0.0.1/Candroid";
 
     public ServerRequests(Context context){
         progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
-        progressDialog.setTitle("Processing");
+        progressDialog.setTitle("Proccessing");
         progressDialog.setMessage("Please wait...");
     }
 

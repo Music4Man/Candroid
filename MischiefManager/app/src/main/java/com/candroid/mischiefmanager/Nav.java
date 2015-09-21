@@ -1,6 +1,7 @@
 package com.candroid.mischiefmanager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
+import com.candroid.mischiefmanager.Login.Login;
+import com.candroid.mischiefmanager.Login.UserLocalStore;
 import com.candroid.mischiefmanager.Menu.Callendar_Fragment;
 import com.candroid.mischiefmanager.Menu.Logout_Fragment;
 import com.candroid.mischiefmanager.Menu.Selfie_Fragment;
@@ -65,7 +68,13 @@ public class Nav extends AppCompatActivity
                 objFragment = new Callendar_Fragment();
                 break;
             case 4:
+                UserLocalStore userLocalStore;
+                userLocalStore = new UserLocalStore(this);
+
+                userLocalStore.clearUserData();
+                userLocalStore.setUserLoggedIn(false);
                 objFragment = new Logout_Fragment();
+                startActivity(new Intent(this, Login.class));
                 break;
         }
         // update the main content by replacing fragments

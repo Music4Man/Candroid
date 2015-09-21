@@ -48,6 +48,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onStart();
         if(authenticate()){
             startActivity(new Intent(this, Nav.class));
+        } else {
+            //startActivity(new Intent(this, Login.class));
         }
     }
 
