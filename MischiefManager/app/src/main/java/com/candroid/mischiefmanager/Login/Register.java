@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.candroid.mischiefmanager.Journal;
 import com.candroid.mischiefmanager.R;
@@ -22,6 +23,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     EditText editName, editNickName, editAge, editSurname, editEmail, editPassword,editConfPassword;
     CheckBox agreeCheckBox;
     UserLocalStore userLocalStore;
+    TextView backToLoginLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +39,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         editConfPassword = (EditText) findViewById(R.id.editConfPassword);
         registerButton = (Button) findViewById(R.id.register);
         agreeCheckBox = (CheckBox) findViewById(R.id.LicenceAgreement);
+        backToLoginLink = (TextView) findViewById(R.id.backToLogin);
 
         registerButton.setOnClickListener(this);
+        backToLoginLink.setOnClickListener(this);
 
         registerButton.setEnabled(false);
 
@@ -60,7 +64,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
+        getMenuInflater().inflate(R.menu.menu_register, menu);
         return true;
     }
 
@@ -114,6 +118,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 }
 
                 break;
+
+            case R.id.backToLogin:
+                startActivity(new Intent(this, Login.class));
+                break;
         }
     }
 
@@ -138,7 +146,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         serverRequest.storeUserDataToServer(user, new GetUserCallBack() {
             @Override
             public void done(User returnedUser) {
-                startActivity(new Intent(Register.this, Login.class));
+                if(returnedUser == null){
+                    showErrorMessage("Error registering your profile");
+                } else {
+                    startActivity(new Intent(Register.this, Login.class));
+                }
             }
         });
     }

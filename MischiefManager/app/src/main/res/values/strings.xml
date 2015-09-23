@@ -23,6 +23,7 @@
     <string name="RegisterButton">Register</string>
     <string name="updateProfile">Update Profile</string>
     <string name="title_activity_nav">Mischief Manager</string>
+    <string name="back_to_login">Back to login</string>
 
     <string name="title_section1">Journal</string>
     <string name="title_section2">Selfie Manager</string>
@@ -36,10 +37,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_example"></string>
     <string name="title_activity_callendar">Calendar</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_maps">Map</string>
 
 </resources>
