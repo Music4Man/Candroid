@@ -18,6 +18,7 @@ import com.candroid.mischiefmanager.Login.Login;
 import com.candroid.mischiefmanager.Login.UserLocalStore;
 import com.candroid.mischiefmanager.Menu.Callendar_Fragment;
 import com.candroid.mischiefmanager.Menu.Logout_Fragment;
+import com.candroid.mischiefmanager.Menu.ManageProfile_Fragment;
 import com.candroid.mischiefmanager.Menu.MapsActivity_Fragment;
 import com.candroid.mischiefmanager.Menu.Selfie_Fragment;
 import com.candroid.mischiefmanager.Menu.ToDo_Fragment;
@@ -57,21 +58,24 @@ public class Nav extends AppCompatActivity
 
         switch (position){
             case 0:
-                objFragment = new Journal_Fragment();
+                objFragment = new ManageProfile_Fragment();
                 break;
             case 1:
-                objFragment =  new Selfie_Fragment();
+                objFragment = new Journal_Fragment();
                 break;
             case 2:
-                objFragment = new ToDo_Fragment();
+                objFragment =  new Selfie_Fragment();
                 break;
             case 3:
-                objFragment = new Callendar_Fragment();
+                objFragment = new ToDo_Fragment();
                 break;
             case 4:
-                objFragment = new MapsActivity_Fragment();
+                objFragment = new Callendar_Fragment();
                 break;
             case 5:
+                objFragment = new MapsActivity_Fragment();
+                break;
+            case 6:
                 UserLocalStore userLocalStore;
                 userLocalStore = new UserLocalStore(this);
 
@@ -107,6 +111,9 @@ public class Nav extends AppCompatActivity
                 break;
             case 6:
                 mTitle = getString(R.string.title_section6);
+                break;
+            case 7:
+                mTitle = getString(R.string.title_section7);
                 break;
         }
     }
