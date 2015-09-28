@@ -29,22 +29,37 @@ import java.util.ArrayList;
  * Created by Elzahn on 17/09/2015.
  */
 public class ServerRequests {
-    ProgressDialog progressDialog;
+    ProgressDialog updateDialog, loadDialog, registerDialog;
 
     public ServerRequests(Context context){
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle("Proccessing");
-        progressDialog.setMessage("Please wait...");
+        updateDialog = new ProgressDialog(context);
+        updateDialog.setCancelable(false);
+        updateDialog.setTitle("Updating your profile");
+        updateDialog.setMessage("Please wait...");
+
+        loadDialog = new ProgressDialog(context);
+        loadDialog.setCancelable(false);
+        loadDialog.setTitle("Logging in");
+        loadDialog.setMessage("Please wait...");
+
+        registerDialog = new ProgressDialog(context);
+        registerDialog.setCancelable(false);
+        registerDialog.setTitle("Registering your profile");
+        registerDialog.setMessage("Please wait...");
+    }
+
+    public void updateUserData(User user, String originalNickName, GetUserCallBack callBack){
+        updateDialog.show();
+        new updateUserAsyncTask(user, originalNickName, callBack).execute();
     }
 
     public void storeUserDataToServer(User user, GetUserCallBack callBack){
-        progressDialog.show();
+        registerDialog.show();
         new StoreUserDataAsyncTask(user, callBack).execute();
     }
 
     public void fetchUserDataFromServer(User user, GetUserCallBack callBack){
-        progressDialog.show();
+        loadDialog.show();
         new fetchUserDataAsyncTask(user, callBack).execute();
     }
 
@@ -131,6 +146,51 @@ public class ServerRequests {
         }
     }
 
+    public class updateUserAsyncTask extends AsyncTask<Void, String, User>{
+        User user;
+        String originalNickName;
+        GetUserCallBack callBack;
+
+        public updateUserAsyncTask(User user, String originalNickName, GetUserCallBack callBack){
+            this.user = user;
+            this.callBack = callBack;
+            this.originalNickName = originalNickName;
+        }
+
+        @Override
+        protected User doInBackground(Void... params) {
+            String dataToSend = null;
+
+            try {
+                dataToSend = "name=" + URLEncoder.encode(user.name, "UTF-8") +
+                        "&surname=" + URLEncoder.encode(user.surname, "UTF-8") +
+                        "&age=" + URLEncoder.encode(String.valueOf(user.age), "UTF-8") +
+                        "&email=" + URLEncoder.encode(user.email, "UTF-8") +
+                        "&password=" + URLEncoder.encode(user.password, "UTF-8")+
+                        "&nickname=" + URLEncoder.encode(user.nickname, "UTF-8")+
+                        "&originalNickName=" + URLEncoder.encode(originalNickName, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            ArrayList<String> temp = excutePost("http://10.0.2.2:8000/Candroid/updateUserData.php", dataToSend);
+
+            if(temp.isEmpty()){
+                return null;
+            } else {
+                User returnedUser = new User(temp.get(5), Integer.parseInt(temp.get(2)), temp.get(0), temp.get(4), temp.get(1), temp.get(3));
+                return returnedUser;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(User user){
+            updateDialog.dismiss();
+            callBack.done(user);
+            super.onPostExecute(user);
+        }
+    }
+
     public class fetchUserDataAsyncTask extends AsyncTask<Void, Void, User> {
         User user;
         GetUserCallBack callBack;
@@ -163,7 +223,7 @@ public class ServerRequests {
 
         @Override
         protected void onPostExecute(User user){
-            progressDialog.dismiss();
+            loadDialog.dismiss();
             callBack.done(user);
             super.onPostExecute(user);
         }
@@ -171,7 +231,7 @@ public class ServerRequests {
 
     //background task is async
     //how we get, send, adn return - Voids
-    public class StoreUserDataAsyncTask extends AsyncTask<Void, Void, Void> {
+    public class StoreUserDataAsyncTask extends AsyncTask<Void, Void, User> {
         User user;
         GetUserCallBack callBack;
 
@@ -180,7 +240,7 @@ public class ServerRequests {
             this.callBack = callBack;
         }
 
-        @Override
+       /* @Override
         protected Void doInBackground(Void... params){
             String dataToSend = null;
             try {
@@ -196,13 +256,38 @@ public class ServerRequests {
 
             excutePost("http://10.0.2.2:8000/Candroid/registerNewUser.php", dataToSend);
             return null;
+        }*/
+
+        @Override
+        protected User doInBackground(Void... params) {
+            String dataToSend = null;
+
+            try {
+                dataToSend = "name=" + URLEncoder.encode(user.name, "UTF-8") +
+                        "&surname=" + URLEncoder.encode(user.surname, "UTF-8") +
+                        "&age=" + URLEncoder.encode(String.valueOf(user.age), "UTF-8") +
+                        "&email=" + URLEncoder.encode(user.email, "UTF-8") +
+                        "&password=" + URLEncoder.encode(user.password, "UTF-8")+
+                        "&nickname=" + URLEncoder.encode(user.nickname, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            ArrayList<String> temp = excutePost("http://10.0.2.2:8000/Candroid/registerNewUser.php", dataToSend);
+
+            if(temp.isEmpty()){
+                return null;
+            } else {
+                User returnedUser = new User(temp.get(5), Integer.parseInt(temp.get(2)), temp.get(0), temp.get(4), temp.get(1), temp.get(3));
+                return returnedUser;
+            }
         }
 
         @Override
-        protected void onPostExecute(Void aVoid){
-            progressDialog.dismiss();
-            callBack.done(null);
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(User user){
+            registerDialog.dismiss();
+            callBack.done(user);
+            super.onPostExecute(user);
         }
     }
 }

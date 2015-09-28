@@ -1,5 +1,7 @@
 package com.candroid.mischiefmanager.Login;
 
+import java.util.ArrayList;
+
 /**
  * Created by Elzahn on 17/09/2015.
  */
@@ -15,6 +17,19 @@ public class User {
         this.nickname = nickname;
         this.password = password;
         this.age = age;
+    }
+
+    public ArrayList<String> getUserDetails(){
+        ArrayList<String> user = new ArrayList<>();
+
+        user.add(name);
+        user.add(surname);
+        user.add(String.valueOf(age));
+        user.add(nickname);
+        user.add(email);
+        user.add(password);
+
+        return user;
     }
 
     public User(String nickname, String password)

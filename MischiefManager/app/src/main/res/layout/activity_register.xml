@@ -10,136 +10,151 @@
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         android:id="@+id/scrollView">
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/Name"
-                android:id="@+id/Name"
-                android:layout_marginTop="25dp" />
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editName"
-                android:inputType="text"
-                android:maxLength="30" />
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/Surname"
-                android:id="@+id/Surname" />
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editSurname"
-                android:inputType="text"
-                android:maxLength="30" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/Age"
-                android:id="@+id/Age" />
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editAge"
-                android:inputType="number"
-                android:maxLength="11"
-                android:numeric="integer" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/EvilNickname"
-                android:id="@+id/EvilNickname" />
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editNickname"
-                android:inputType="text"
-                android:maxLength="25" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/Email"
-                android:id="@+id/Email" />
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editEmail"
-                android:inputType="textWebEmailAddress" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/Password"
-                android:id="@+id/Password" />
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editPassword"
-                android:inputType="textPassword"
-                android:maxLength="20" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/ConfPassword"
-                android:id="@+id/ConfPassword" />
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editConfPassword"
-                android:inputType="textPassword"
-                android:maxLength="20" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Licence"
-                android:id="@+id/LicenceText"
-                android:height="120dp"
-                android:layout_marginTop="26dp" />
-
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Agree"
-                android:id="@+id/LicenceAgreement"
-                android:checked="false" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/back_to_login"
+                android:id="@+id/backToLogin"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="15dp"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/RegisterButton"
-                android:id="@+id/register"
-                android:clickable="true"
-                android:nestedScrollingEnabled="false"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="130dp"/>
+                <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/Name"
+                    android:id="@+id/Name"
+                    android:layout_marginTop="25dp" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editName"
+                    android:inputType="text"
+                    android:maxLength="30" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/Surname"
+                    android:id="@+id/Surname" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editSurname"
+                    android:inputType="text"
+                    android:maxLength="30" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/Age"
+                    android:id="@+id/Age" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editAge"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:numeric="integer" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/EvilNickname"
+                    android:id="@+id/EvilNickname" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editNickname"
+                    android:inputType="text"
+                    android:maxLength="25" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/Email"
+                    android:id="@+id/Email" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editEmail"
+                    android:inputType="textWebEmailAddress" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/Password"
+                    android:id="@+id/Password" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editPassword"
+                    android:inputType="textPassword"
+                    android:maxLength="20" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/ConfPassword"
+                    android:id="@+id/ConfPassword" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editConfPassword"
+                    android:inputType="textPassword"
+                    android:maxLength="20" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Licence"
+                    android:id="@+id/LicenceText"
+                    android:height="120dp"
+                    android:layout_marginTop="26dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Agree"
+                    android:id="@+id/LicenceAgreement"
+                    android:checked="false" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/RegisterButton"
+                    android:id="@+id/register"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="130dp"/>
+            </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
-
 
 </RelativeLayout>
