@@ -25,12 +25,13 @@
     <string name="title_activity_nav">Mischief Manager</string>
     <string name="back_to_login">Back to login</string>
 
-    <string name="title_section1">Manage Profile</string>
-    <string name="title_section2">Journal</string>
-    <string name="title_section3">Selfie Manager</string>
-    <string name="title_section4">To Do</string>
-    <string name="title_section5">Calendar</string>
-    <string name="title_section6">Map</string>
+
+    <string name="title_section1">Journal</string>
+    <string name="title_section2">Selfie Manager</string>
+    <string name="title_section3">To Do</string>
+    <string name="title_section4">Calendar</string>
+    <string name="title_section5">Map</string>
+    <string name="title_section6">Manage Profile</string>
     <string name="title_section7">Logout</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

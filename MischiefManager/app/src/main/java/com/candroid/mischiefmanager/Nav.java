@@ -58,22 +58,22 @@ public class Nav extends AppCompatActivity
 
         switch (position){
             case 0:
-                objFragment = new ManageProfile_Fragment();
-                break;
-            case 1:
                 objFragment = new Journal_Fragment();
                 break;
-            case 2:
+            case 1:
                 objFragment =  new Selfie_Fragment();
                 break;
-            case 3:
+            case 2:
                 objFragment = new ToDo_Fragment();
                 break;
-            case 4:
+            case 3:
                 objFragment = new Callendar_Fragment();
                 break;
-            case 5:
+            case 4:
                 objFragment = new MapsActivity_Fragment();
+                break;
+            case 5:
+                objFragment = new ManageProfile_Fragment();
                 break;
             case 6:
                 UserLocalStore userLocalStore;
