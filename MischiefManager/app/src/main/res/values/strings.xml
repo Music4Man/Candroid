@@ -5,7 +5,7 @@
     <string name="action_manage_profile">Mange Profile</string>
     <string name="title_activity_to_do">ToDo</string>
     <string name="title_activity_journal">Journal</string>
-    <string name="title_activity_selfie_manager">SelfieManager</string>
+    <string name="title_activity_selfie_manager">Success Selfies</string>
     <string name="title_activity_main_screen">MainScreen</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_manage_profile">Manage Profile</string>
@@ -32,7 +32,6 @@
     <string name="title_section5">Calendar</string>
     <string name="title_section6">Map</string>
     <string name="title_section7">Logout</string>
-
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
