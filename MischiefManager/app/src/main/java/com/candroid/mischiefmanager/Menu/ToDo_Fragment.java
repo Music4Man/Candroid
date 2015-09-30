@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 
 import com.candroid.mischiefmanager.LAdapter;
 import com.candroid.mischiefmanager.R;
+import com.candroid.mischiefmanager.TaskAdd;
 import com.candroid.mischiefmanager.ToDo;
 import com.candroid.mischiefmanager.db.TaskContract;
 import com.candroid.mischiefmanager.db.TaskDBHelper;
@@ -63,41 +65,69 @@ public class ToDo_Fragment extends Fragment{
                 switch (v.getId()) {
                     case R.id.action_add_task:
                         Log.d("MainActivity", "clicked");
-                        onAddClick(v);
+                        TaskAdd_Fragment obj = new TaskAdd_Fragment();
+
+                        FragmentManager fragmentManager = getFragmentManager();//getSupportFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.container, obj)
+                                .commit();
+
+                        // startActivity(getContext(), TaskAdd.class);
+                        // onAddClick(v);
                         break;
                 }
             }
         });
 
 
-      /*  myList.setOnItemClickListener(d);
+
+
 
         d = new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Log.d("MainActivity", "Inside");
+                Log.d("MainAct9ivity", "Inside");
+
+                Button done =  (Button) view.findViewById(R.id.doneButton);
+
+                if(done.getVisibility() == View.VISIBLE)
+                {
+                    done.setVisibility(View.INVISIBLE);
+                    done.setOnClickListener(null);
+                }
+                else
+                {
+                    done.setVisibility(View.VISIBLE);
+                    done.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+
+                            Log.d("MainActivity", "Inside2");
+                            onDoneButtonClick(v);
+                        }
+                    });
+
+
+                }
+
+
 
             }
-        };*/
+        };
 
+        myList.setOnItemClickListener(d);
        // Button done = (Button) rootview.findViewById(R.id.doneButton);
 
        // adapter = new LAdapter(getActivity(), );
 
 
-/*
-        done.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                View parentRow = (View) v.getParent();
-                ListView li = (ListView) parentRow.getParent();
-                final int pos = li.getPositionForView(parentRow);
-                Log.d("MainActivity", "Inside");
-            }
-        });*/
+
+
+
 
         updateUI();
 
@@ -186,6 +216,33 @@ public class ToDo_Fragment extends Fragment{
                 new String[]{TaskContract.Columns._ID, TaskContract.Columns.TASK},
                 null, null, null, null, null);
        // Log.d("MainActivity", "Inside3");
+
+
+
+       /* cursor.moveToFirst();
+
+        while(cursor.isAfterLast() == false)
+        {
+            Button done = (Button) getView().findViewById(R.id.doneButton);
+
+            done.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    Log.d("MainActivity", "Inside2hhh");
+                }
+
+
+            });
+
+            cursor.moveToNext();
+        }*/
+
+
+
+
+
         SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(
                 getActivity(),
                 R.layout.task_view,
@@ -194,6 +251,8 @@ public class ToDo_Fragment extends Fragment{
                 new int[]{R.id.taskTextView},
                 0
         );
+
+
       //  Log.d("MainActivity", "Inside4");
       //  List myList = new List();
       //  Log.d("MainActivity", "Inside5");
@@ -203,6 +262,8 @@ public class ToDo_Fragment extends Fragment{
 
 
     }
+
+
 
 
 
