@@ -5,7 +5,7 @@
     <string name="action_manage_profile">Mange Profile</string>
     <string name="title_activity_to_do">ToDo</string>
     <string name="title_activity_journal">Journal</string>
-    <string name="title_activity_selfie_manager">SelfieManager</string>
+    <string name="title_activity_selfie_manager">Success Selfies</string>
     <string name="title_activity_main_screen">MainScreen</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_manage_profile">Manage Profile</string>
@@ -25,14 +25,14 @@
     <string name="title_activity_nav">Mischief Manager</string>
     <string name="back_to_login">Back to login</string>
 
+
     <string name="title_section1">Journal</string>
     <string name="title_section2">Selfie Manager</string>
     <string name="title_section3">To Do</string>
     <string name="title_section4">Calendar</string>
-
     <string name="title_section5">Map</string>
-    <string name="title_section6">Logout</string>
-
+    <string name="title_section6">Manage Profile</string>
+    <string name="title_section7">Logout</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
