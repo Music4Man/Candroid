@@ -24,7 +24,7 @@
     <string name="updateProfile">Update Profile</string>
     <string name="title_activity_nav">Mischief Manager</string>
     <string name="back_to_login">Back to login</string>
-
+    <string name="oldPassword">Current Password</string>
 
     <string name="title_section1">Journal</string>
     <string name="title_section2">Selfie Manager</string>

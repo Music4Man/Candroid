@@ -2,25 +2,17 @@ package com.candroid.mischiefmanager.Login;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -48,9 +40,9 @@ public class ServerRequests {
         registerDialog.setMessage("Please wait...");
     }
 
-    public void updateUserData(User user, String originalNickName, GetUserCallBack callBack){
+    public void updateUserData(User user, String originalNickName, String oldPassword, GetUserCallBack callBack){
         updateDialog.show();
-        new updateUserAsyncTask(user, originalNickName, callBack).execute();
+        new updateUserAsyncTask(user, originalNickName, oldPassword, callBack).execute();
     }
 
     public void storeUserDataToServer(User user, GetUserCallBack callBack){
@@ -67,11 +59,21 @@ public class ServerRequests {
     {
         URL url;
         HttpURLConnection connection = null;
+
         try {
             //Create connection
             url = new URL(targetURL);
             connection = (HttpURLConnection)url.openConnection();
             connection.setRequestMethod("POST");
+
+            Authenticator.setDefault(new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    PasswordAuthentication pass = new PasswordAuthentication("Candroid", "kmTYHA6q".toCharArray());
+                    return pass;
+                }
+            });
+
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
             connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
@@ -81,22 +83,24 @@ public class ServerRequests {
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
+            connection.connect();
+
             //Send request
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
 
-            wr.writeBytes (urlParameters);
+            wr.writeBytes(urlParameters);
             wr.flush();
-            wr.close ();
+            wr.close();
 
             //Get Response
             InputStream is = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            String line;
 
+            String line;
             ArrayList<String> returnedArray = new ArrayList<>();
 
-            while((line = rd.readLine()) != null) {
-                if(!line.equals("[]")) {
+            while ((line = rd.readLine()) != null) {
+                if (!line.equals("[]")) {
                     String[] temp = line.split(",");
                     int pos = 13;
                     int lastPos = temp[0].lastIndexOf('"');
@@ -131,15 +135,11 @@ public class ServerRequests {
                 }
             }
             rd.close();
-
             return returnedArray;
-
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-
         } finally {
-
             if(connection != null) {
                 connection.disconnect();
             }
@@ -149,12 +149,14 @@ public class ServerRequests {
     public class updateUserAsyncTask extends AsyncTask<Void, String, User>{
         User user;
         String originalNickName;
+        String oldPassword;
         GetUserCallBack callBack;
 
-        public updateUserAsyncTask(User user, String originalNickName, GetUserCallBack callBack){
+        public updateUserAsyncTask(User user, String originalNickName, String oldPassword, GetUserCallBack callBack){
             this.user = user;
             this.callBack = callBack;
             this.originalNickName = originalNickName;
+            this.oldPassword = oldPassword;
         }
 
         @Override
@@ -168,12 +170,13 @@ public class ServerRequests {
                         "&email=" + URLEncoder.encode(user.email, "UTF-8") +
                         "&password=" + URLEncoder.encode(user.password, "UTF-8")+
                         "&nickname=" + URLEncoder.encode(user.nickname, "UTF-8")+
-                        "&originalNickName=" + URLEncoder.encode(originalNickName, "UTF-8");
+                        "&originalNickName=" + URLEncoder.encode(originalNickName, "UTF-8")+
+                        "&oldPassword=" + URLEncoder.encode(oldPassword, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
 
-            ArrayList<String> temp = excutePost("http://10.0.2.2:8000/Candroid/updateUserData.php", dataToSend);
+            ArrayList<String> temp = excutePost("http://imy.up.ac.za/Candroid/updateUserData.php", dataToSend);
 
             if(temp.isEmpty()){
                 return null;
@@ -211,7 +214,7 @@ public class ServerRequests {
                 e.printStackTrace();
             }
 
-            ArrayList<String> temp = excutePost("http://10.0.2.2:8000/Candroid/fetchUserData.php", dataToSend);
+            ArrayList<String> temp = excutePost("http://imy.up.ac.za/Candroid/fetchUserData.php", dataToSend);
 
             if(temp.isEmpty()){
                 return null;
@@ -240,24 +243,6 @@ public class ServerRequests {
             this.callBack = callBack;
         }
 
-       /* @Override
-        protected Void doInBackground(Void... params){
-            String dataToSend = null;
-            try {
-                dataToSend = "name=" + URLEncoder.encode(user.name, "UTF-8") +
-                            "&surname=" + URLEncoder.encode(user.surname, "UTF-8") +
-                            "&age=" + URLEncoder.encode(String.valueOf(user.age), "UTF-8") +
-                            "&email=" + URLEncoder.encode(user.email, "UTF-8") +
-                            "&password=" + URLEncoder.encode(user.password, "UTF-8")+
-                            "&nickname=" + URLEncoder.encode(user.nickname, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-
-            excutePost("http://10.0.2.2:8000/Candroid/registerNewUser.php", dataToSend);
-            return null;
-        }*/
-
         @Override
         protected User doInBackground(Void... params) {
             String dataToSend = null;
@@ -273,7 +258,7 @@ public class ServerRequests {
                 e.printStackTrace();
             }
 
-            ArrayList<String> temp = excutePost("http://10.0.2.2:8000/Candroid/registerNewUser.php", dataToSend);
+            ArrayList<String> temp = excutePost("http://imy.up.ac.za/Candroid/registerNewUser.php", dataToSend);
 
             if(temp.isEmpty()){
                 return null;

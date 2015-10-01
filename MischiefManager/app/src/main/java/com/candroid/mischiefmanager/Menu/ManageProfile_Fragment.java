@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ public class ManageProfile_Fragment extends Fragment implements View.OnClickList
         editSurname = (EditText) rootview.findViewById(R.id.editSurname);
         editEmail = (EditText) rootview.findViewById(R.id.editEmail);
         editPassword = (EditText) rootview.findViewById(R.id.editPassword);
-        editConfPassword = (EditText) rootview.findViewById(R.id.editConfPassword);
+        editConfPassword = (EditText) rootview.findViewById(R.id.editOldPassword);
         updateButton = (Button) rootview.findViewById(R.id.updateProfile);
 
         updateButton.setOnClickListener(this);
@@ -73,7 +74,6 @@ public class ManageProfile_Fragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch ((v.getId())){
             case R.id.updateProfile:
-
                 String name = editName.getText().toString();
                 String surname = editSurname.getText().toString();
                 String tempAge = editAge.getText().toString();
@@ -90,16 +90,12 @@ public class ManageProfile_Fragment extends Fragment implements View.OnClickList
                 if(!name.isEmpty() && !confEmail.isEmpty() && !surname.isEmpty() &&!tempAge.isEmpty() && !nickname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
                     if(age < 15) {
                         showErrorMessage("You must be at least 15 to use this app");
-                    } else if(confEmail.equals(password)) {
-                        if(isValidEmail(email)) {
+                    } else if(isValidEmail(email)) {
                             User user = new User(name, age, nickname, surname, password, email);
-                            updateUser(user, originalNickName);
+                            updateUser(user, originalNickName, editConfPassword.getText().toString());
                         } else {
-                            showErrorMessage("Registration not complete");
+                            showErrorMessage("Registration not complete. Check your current password");
                         }
-                    } else {
-                        showErrorMessage("Passwords don't match");
-                    }
                 } else {
                     showErrorMessage("Please fill in all boxes");
                 }
@@ -117,13 +113,13 @@ public class ManageProfile_Fragment extends Fragment implements View.OnClickList
         }
     }
 
-    private void updateUser(User user, String originalNickName) {
+    private void updateUser(User user, String originalNickName, String oldPassword) {
         ServerRequests serverRequest = new ServerRequests(getContext());
-        serverRequest.updateUserData(user, originalNickName, new GetUserCallBack() {
+        serverRequest.updateUserData(user, originalNickName, oldPassword, new GetUserCallBack() {
             @Override
             public void done(User returnedUser) {
                 if (returnedUser == null) {
-                    showErrorMessage("Could not update your profile");
+                    showErrorMessage("Could not update your profile. Check if your current password is correct.");
                 } else {
                     ArrayList<String> userDetails = returnedUser.getUserDetails();
                     editNickName.setText(userDetails.get(3));
@@ -132,6 +128,7 @@ public class ManageProfile_Fragment extends Fragment implements View.OnClickList
                     editSurname.setText(userDetails.get(1));
                     editEmail.setText(userDetails.get(4));
                     editPassword.setText(userDetails.get(5));
+                    editConfPassword.setText("");
                 }
             }
         });

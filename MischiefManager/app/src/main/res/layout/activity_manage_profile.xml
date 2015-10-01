@@ -105,13 +105,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/ConfPassword"
-                android:id="@+id/ConfPassword" />
+                android:text="@string/oldPassword"
+                android:id="@+id/oldPassword" />
 
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editConfPassword"
+                android:id="@+id/editOldPassword"
                 android:inputType="textPassword"
                 android:maxLength="20" />
 
