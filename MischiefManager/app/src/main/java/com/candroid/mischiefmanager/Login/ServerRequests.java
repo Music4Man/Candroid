@@ -100,6 +100,7 @@ public class ServerRequests {
             ArrayList<String> returnedArray = new ArrayList<>();
 
             while ((line = rd.readLine()) != null) {
+                Log.d("serverError", line);
                 if (!line.equals("[]")) {
                     String[] temp = line.split(",");
                     int pos = 13;
@@ -138,7 +139,7 @@ public class ServerRequests {
             return returnedArray;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("serverError", e.toString());
+            Log.d("serverError2", e.toString());
             return null;
         } finally {
             if(connection != null) {
@@ -179,7 +180,7 @@ public class ServerRequests {
 
             ArrayList<String> temp = excutePost("http://imy.up.ac.za/Candroid/updateUserData.php", dataToSend);
 
-            if(temp == null){
+            if(temp == null || temp.isEmpty()){
                 return null;
             } else {
                 User returnedUser = new User(temp.get(5), Integer.parseInt(temp.get(2)), temp.get(0), temp.get(4), temp.get(1), temp.get(3));
@@ -217,7 +218,7 @@ public class ServerRequests {
 
             ArrayList<String> temp = excutePost("http://imy.up.ac.za/Candroid/fetchUserData.php", dataToSend);
 
-            if(temp == null){
+            if(temp == null || temp.isEmpty()){
                 return null;
             } else {
                 User returnedUser = new User(temp.get(5), Integer.parseInt(temp.get(2)), temp.get(0), temp.get(4), temp.get(1), temp.get(3));
@@ -261,7 +262,7 @@ public class ServerRequests {
 
             ArrayList<String> temp = excutePost("http://imy.up.ac.za/Candroid/registerNewUser.php", dataToSend);
 
-            if(temp == null){
+            if(temp == null || temp.isEmpty()){
                 return null;
             } else {
                 User returnedUser = new User(temp.get(5), Integer.parseInt(temp.get(2)), temp.get(0), temp.get(4), temp.get(1), temp.get(3));

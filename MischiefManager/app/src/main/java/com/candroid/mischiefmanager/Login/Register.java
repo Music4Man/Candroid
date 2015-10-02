@@ -147,7 +147,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void done(User returnedUser) {
                 if(returnedUser == null){
-                    showErrorMessage("Error registering your profile");
+                    showErrorMessage("Error registering your profile. Username might be taken");
                 } else {
                     startActivity(new Intent(Register.this, Login.class));
                 }

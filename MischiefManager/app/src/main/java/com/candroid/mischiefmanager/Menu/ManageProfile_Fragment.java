@@ -70,6 +70,10 @@ public class ManageProfile_Fragment extends Fragment implements View.OnClickList
         }
     }
 
+    public void setOriginalNickName(String name){
+        originalNickName = name;
+    }
+
     @Override
     public void onClick(View v) {
         switch ((v.getId())){
@@ -129,6 +133,7 @@ public class ManageProfile_Fragment extends Fragment implements View.OnClickList
                     editEmail.setText(userDetails.get(4));
                     editPassword.setText(userDetails.get(5));
                     editConfPassword.setText("");
+                    setOriginalNickName(editNickName.getText().toString());
                 }
             }
         });
