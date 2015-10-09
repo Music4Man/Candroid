@@ -13,9 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.candroid.mischiefmanager.Login.User;
+import com.candroid.mischiefmanager.Login.UserLocalStore;
 import com.candroid.mischiefmanager.R;
 import com.candroid.mischiefmanager.db.TaskContract;
 import com.candroid.mischiefmanager.db.TaskDBHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by Firdous on 2015-09-28.
@@ -25,11 +29,23 @@ public class TaskAdd_Fragment extends Fragment
     View rootview;
     private TaskDBHelper helper;
     EditText task;
+    String jsonResult;
+    String url;
+    UserLocalStore current;
+    User loggedInUser;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         rootview = inflater.inflate(R.layout.activity_task_add, container, false);
         task = (EditText) rootview.findViewById(R.id.actual_task);
+
+        current = new UserLocalStore(getContext());
+
+        loggedInUser = current.getLoggedInUser();
+        String userDetails = loggedInUser.getUserDetails().get(3);
+
+
 
         Button add;
         add = (Button) rootview.findViewById(R.id.add_task);

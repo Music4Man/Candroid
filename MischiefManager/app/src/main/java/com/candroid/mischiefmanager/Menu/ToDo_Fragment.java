@@ -1,37 +1,31 @@
 package com.candroid.mischiefmanager.Menu;
 
-import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CursorAdapter;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.candroid.mischiefmanager.LAdapter;
+import com.candroid.mischiefmanager.Login.User;
+import com.candroid.mischiefmanager.Login.UserLocalStore;
 import com.candroid.mischiefmanager.R;
-import com.candroid.mischiefmanager.TaskAdd;
-import com.candroid.mischiefmanager.ToDo;
 import com.candroid.mischiefmanager.db.TaskContract;
 import com.candroid.mischiefmanager.db.TaskDBHelper;
+import com.candroid.mischiefmanager.db.ToDoConnect;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Frank on 2015-09-20.
@@ -42,7 +36,13 @@ public class ToDo_Fragment extends Fragment{
     private TaskDBHelper helper;
     ListView myList;
     AdapterView.OnItemClickListener d;
-    LAdapter adapter;
+    UserLocalStore current;
+    User loggedInUser;
+
+   String jsonResult;
+    private static String url_all_items = "http://localhost/android/display_todo_list.php";
+    ArrayList<HashMap<String, String>> itemList;
+    JSONArray products = null;
 
     //@Nullable
     @Override
@@ -51,6 +51,10 @@ public class ToDo_Fragment extends Fragment{
         //myList =  (ListActivity) getContext();
         myList =  (ListView) rootview.findViewById(R.id.list);
 
+        current = new UserLocalStore(getContext());
+
+        loggedInUser = current.getLoggedInUser();
+        String userDetails = loggedInUser.getUserDetails().get(3);
 
 
 
@@ -81,6 +85,10 @@ public class ToDo_Fragment extends Fragment{
 
 
 
+        ToDoConnect conn = new ToDoConnect(getContext());
+
+
+
 
 
         d = new AdapterView.OnItemClickListener()
@@ -94,8 +102,12 @@ public class ToDo_Fragment extends Fragment{
 
                 if(done.getVisibility() == View.VISIBLE)
                 {
+                   // Animation anim = new TranslateAnimation(done.getX(),done.getX()-10,done.getY(),done.getY());
+                   // anim.setDuration(2000);
+                   // done.startAnimation(anim);
                     done.setVisibility(View.INVISIBLE);
                     done.setOnClickListener(null);
+
                 }
                 else
                 {
@@ -119,15 +131,6 @@ public class ToDo_Fragment extends Fragment{
         };
 
         myList.setOnItemClickListener(d);
-       // Button done = (Button) rootview.findViewById(R.id.doneButton);
-
-       // adapter = new LAdapter(getActivity(), );
-
-
-
-
-
-
 
         updateUI();
 
@@ -135,71 +138,19 @@ public class ToDo_Fragment extends Fragment{
     }
 
 
-
-    public void onAddClick(View view)
-    {
-        View v = (View) view.getParent();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Add a task");
-        builder.setMessage("What do you want to do?");
-        final EditText inputField = new EditText(getActivity());
-        builder.setView(inputField);
-        builder.setPositiveButton("Add",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String task = inputField.getText().toString();
-                        Log.d("MainActivity", task);
-
-                        helper = new TaskDBHelper(getActivity());
-                        SQLiteDatabase db = helper.getWritableDatabase();
-                        ContentValues values = new ContentValues();
-
-                        values.clear();
-                        values.put(TaskContract.Columns.TASK, task);
-
-                        db.insertWithOnConflict(TaskContract.TABLE, null, values,
-                                SQLiteDatabase.CONFLICT_IGNORE);
-
-                        //Log.d("MainActivity", "Before");
-                        updateUI();
-                    }
-                });
-
-
-
-        builder.setNegativeButton("Cancel", null);
-
-        builder.create().show();
-
-        // Log.d("MainActivity", "fdfsdf");
-
-
-
-    }
-
-
     public void onDoneButtonClick(View view) {
         View v = (View) view.getParent();
-        Log.d("MainActivity", "Inside");
         TextView taskTextView = (TextView) v.findViewById(R.id.taskTextView);
-        Log.d("MainActivity", "Inside2");
 
         String task = taskTextView.getText().toString();
-        Log.d("MainActivity", "Inside3");
         String sql = String.format("DELETE FROM %s WHERE %s = '%s'",
                 TaskContract.TABLE,
                 TaskContract.Columns.TASK,
                 task);
-        Log.d("MainActivity", "Inside4");
 
         helper = new TaskDBHelper(getContext());
-        Log.d("MainActivity", "Inside5");
         SQLiteDatabase sqlDB = helper.getWritableDatabase();
-        Log.d("MainActivity", "Inside6");
         sqlDB.execSQL(sql);
-        Log.d("MainActivity", "Inside7");
         updateUI();
     }
 
@@ -208,18 +159,13 @@ public class ToDo_Fragment extends Fragment{
 
     private void updateUI()
     {
-        helper = new TaskDBHelper(getActivity());
-      //  Log.d("MainActivity", "Inside");
+        /*helper = new TaskDBHelper(getActivity());
         SQLiteDatabase sqlDB = helper.getReadableDatabase();
-      //  Log.d("MainActivity", "Inside2");
         Cursor cursor = sqlDB.query(TaskContract.TABLE,
                 new String[]{TaskContract.Columns._ID, TaskContract.Columns.TASK},
                 null, null, null, null, null);
-       // Log.d("MainActivity", "Inside3");
 
-
-
-       /* cursor.moveToFirst();
+        cursor.moveToFirst();
 
         while(cursor.isAfterLast() == false)
         {
@@ -237,7 +183,7 @@ public class ToDo_Fragment extends Fragment{
             });
 
             cursor.moveToNext();
-        }*/
+        }
 
 
 
@@ -253,19 +199,13 @@ public class ToDo_Fragment extends Fragment{
         );
 
 
-      //  Log.d("MainActivity", "Inside4");
-      //  List myList = new List();
-      //  Log.d("MainActivity", "Inside5");
-       // myList.setIt(listAdapter);
-        myList.setAdapter(listAdapter);
-      //  Log.d("MainActivity", "Inside6");
-
-
+         myList.setAdapter(listAdapter);*/
     }
 
 
 
 
-
 }
+
+
 
