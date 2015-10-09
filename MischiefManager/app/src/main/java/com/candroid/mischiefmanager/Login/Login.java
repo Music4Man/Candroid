@@ -126,9 +126,4 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         userLocalStore.setUserLoggedIn(true);
         startActivity(new Intent(this, Nav.class));
     }
-
-    public void test(){
-
-        Log.d("serverErrorLogin", "here");
-    }
 }

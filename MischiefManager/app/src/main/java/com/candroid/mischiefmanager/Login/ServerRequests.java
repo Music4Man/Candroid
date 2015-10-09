@@ -24,6 +24,7 @@ public class ServerRequests {
     ProgressDialog updateDialog, loadDialog, registerDialog;
 
     public ServerRequests(Context context){
+        //three dialog boxes shown while it processes the data
         updateDialog = new ProgressDialog(context);
         updateDialog.setCancelable(false);
         updateDialog.setTitle("Updating your profile");
@@ -40,6 +41,7 @@ public class ServerRequests {
         registerDialog.setMessage("Please wait...");
     }
 
+    //3) It calls the constructor for the new Async task
     public void updateUserData(User user, String originalNickName, String oldPassword, GetUserCallBack callBack){
         updateDialog.show();
         new updateUserAsyncTask(user, originalNickName, oldPassword, callBack).execute();
@@ -55,17 +57,19 @@ public class ServerRequests {
         new fetchUserDataAsyncTask(user, callBack).execute();
     }
 
+    //8)this is the function the actually sends and recieves the data - talks to the server
     public ArrayList<String> excutePost(String targetURL, String urlParameters)
     {
         URL url;
         HttpURLConnection connection = null;
 
         try {
-            //Create connection
+            //9)Create connection
             url = new URL(targetURL);
             connection = (HttpURLConnection)url.openConnection();
             connection.setRequestMethod("POST");
 
+            //10)authenticates you via the username and password that the server requires
             Authenticator.setDefault(new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -74,33 +78,35 @@ public class ServerRequests {
                 }
             });
 
+            //11)server request properties - details the type to be expected from the transition
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
             connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
             connection.setRequestProperty("Content-Language", "en-US");
 
+            //12)allows for transfer of data to and from the server
             connection.setUseCaches(false);
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
+            //13)connects to the server
             connection.connect();
 
-            //Send request
+            //14)Send request
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
 
             wr.writeBytes(urlParameters);
             wr.flush();
             wr.close();
 
-            //Get Response
+            //15)Get Response
             InputStream is = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));
 
             String line;
             ArrayList<String> returnedArray = new ArrayList<>();
 
-            while ((line = rd.readLine()) != null) {
-                Log.d("serverError", line);
+            //16)processing the response in the way that login requires it
+            while ((line = rd.readLine()) != null) {    //use this to go through the servers response
                 if (!line.equals("[]")) {
                     String[] temp = line.split(",");
                     int pos = 13;
@@ -135,25 +141,30 @@ public class ServerRequests {
                     returnedArray.add(temp[5]);
                 }
             }
+
+            //17)close buffer used to read data from and return the server's response
             rd.close();
             return returnedArray;
+            //catch any exceptions thrown
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("serverError2", e.toString());
             return null;
         } finally {
+            //18)close the connection
             if(connection != null) {
                 connection.disconnect();
             }
         }
     }
-
+    //First parameter is void, then a string, then a user - If you don't want to return anything just make all void
     public class updateUserAsyncTask extends AsyncTask<Void, String, User>{
         User user;
         String originalNickName;
         String oldPassword;
         GetUserCallBack callBack;
 
+        //4) normal constructor to initualize the variables above.
         public updateUserAsyncTask(User user, String originalNickName, String oldPassword, GetUserCallBack callBack){
             this.user = user;
             this.callBack = callBack;
@@ -161,10 +172,12 @@ public class ServerRequests {
             this.oldPassword = oldPassword;
         }
 
-        @Override
+        //5) this is the function called when this class is called it calls the function that talks to the server
+        @Override//Void...params - means it can take either void or paramaters - I think
         protected User doInBackground(Void... params) {
             String dataToSend = null;
 
+            //6)prepare the string of data to be send to the server. Use this encording ("UTF-8")
             try {
                 dataToSend = "name=" + URLEncoder.encode(user.name, "UTF-8") +
                         "&surname=" + URLEncoder.encode(user.surname, "UTF-8") +
@@ -178,8 +191,10 @@ public class ServerRequests {
                 e.printStackTrace();
             }
 
+            //7)call the function that talks to the server - parameters: address of the php file, data to be send
             ArrayList<String> temp = excutePost("http://imy.up.ac.za/Candroid/updateUserData.php", dataToSend);
 
+            //19)return the value to the callback function
             if(temp == null || temp.isEmpty()){
                 return null;
             } else {
@@ -188,9 +203,11 @@ public class ServerRequests {
             }
         }
 
+        //20)Called automatically once function has executed
         @Override
         protected void onPostExecute(User user){
             updateDialog.dismiss();
+            //21)calls the callback function set where class was called - Now go back to ManageProfile_Fragment
             callBack.done(user);
             super.onPostExecute(user);
         }

@@ -118,8 +118,11 @@ public class ManageProfile_Fragment extends Fragment implements View.OnClickList
     }
 
     private void updateUser(User user, String originalNickName, String oldPassword) {
+        //1)Create the server request
         ServerRequests serverRequest = new ServerRequests(getContext());
+        //2)call the needed class/function with it's callback function provided - Now go to ServerRequest
         serverRequest.updateUserData(user, originalNickName, oldPassword, new GetUserCallBack() {
+            //22)callback function will be called once the function returns with the data from the server - do what you want once the function is over
             @Override
             public void done(User returnedUser) {
                 if (returnedUser == null) {
