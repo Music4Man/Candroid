@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import com.candroid.mischiefmanager.Login.Login;
 import com.candroid.mischiefmanager.Login.User;
 import com.candroid.mischiefmanager.Login.UserLocalStore;
 import com.candroid.mischiefmanager.R;
@@ -38,8 +39,7 @@ public class ToDo_Fragment extends Fragment{
     AdapterView.OnItemClickListener d;
     UserLocalStore current;
     User loggedInUser;
-
-   String jsonResult;
+    String jsonResult;
     private static String url_all_items = "http://localhost/android/display_todo_list.php";
     ArrayList<HashMap<String, String>> itemList;
     JSONArray products = null;
@@ -55,9 +55,6 @@ public class ToDo_Fragment extends Fragment{
 
         loggedInUser = current.getLoggedInUser();
         String userDetails = loggedInUser.getUserDetails().get(3);
-
-
-
 
         Button add;
         add = (Button) rootview.findViewById(R.id.action_add_task);
@@ -86,10 +83,6 @@ public class ToDo_Fragment extends Fragment{
 
 
         ToDoConnect conn = new ToDoConnect(getContext());
-
-
-
-
 
         d = new AdapterView.OnItemClickListener()
         {
@@ -159,7 +152,7 @@ public class ToDo_Fragment extends Fragment{
 
     private void updateUI()
     {
-        /*helper = new TaskDBHelper(getActivity());
+        helper = new TaskDBHelper(getActivity());
         SQLiteDatabase sqlDB = helper.getReadableDatabase();
         Cursor cursor = sqlDB.query(TaskContract.TABLE,
                 new String[]{TaskContract.Columns._ID, TaskContract.Columns.TASK},
@@ -169,8 +162,7 @@ public class ToDo_Fragment extends Fragment{
 
         while(cursor.isAfterLast() == false)
         {
-            Button done = (Button) getView().findViewById(R.id.doneButton);
-
+            /*Button done = (Button) getView().findViewById(R.id.doneButton);
             done.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -180,14 +172,9 @@ public class ToDo_Fragment extends Fragment{
                 }
 
 
-            });
-
+            });*/
             cursor.moveToNext();
         }
-
-
-
-
 
         SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(
                 getActivity(),
@@ -198,8 +185,7 @@ public class ToDo_Fragment extends Fragment{
                 0
         );
 
-
-         myList.setAdapter(listAdapter);*/
+         myList.setAdapter(listAdapter);
     }
 
 

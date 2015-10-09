@@ -23,7 +23,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button loginButton, skipLogin;
     EditText editNickname, editPassword;
     TextView registerLink;
-    UserLocalStore userLocalStore;
+    public UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +64,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()) {
-
-            //noinspection SimplifiableIfStatement
             case R.id.action_settings:
                 return true;
         }
@@ -127,5 +125,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         userLocalStore.storeUserData(returnedUser);
         userLocalStore.setUserLoggedIn(true);
         startActivity(new Intent(this, Nav.class));
+    }
+
+    public void test(){
+
+        Log.d("serverErrorLogin", "here");
     }
 }

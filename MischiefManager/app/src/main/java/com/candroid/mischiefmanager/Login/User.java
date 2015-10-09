@@ -1,5 +1,7 @@
 package com.candroid.mischiefmanager.Login;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -21,7 +23,6 @@ public class User {
 
     public ArrayList<String> getUserDetails(){
         ArrayList<String> user = new ArrayList<>();
-
         user.add(name);
         user.add(surname);
         user.add(String.valueOf(age));
