@@ -32,5 +32,23 @@
         android:visibility="invisible"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date"
+        android:id="@+id/date"
+        android:layout_below="@+id/taskTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="time"
+        android:id="@+id/time"
+        android:layout_below="@+id/taskTextView"
+        android:layout_toRightOf="@+id/date"
+        android:layout_toEndOf="@+id/date" />
+
 
 </RelativeLayout>
