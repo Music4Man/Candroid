@@ -20,10 +20,10 @@
 		while($row = mysqli_fetch_assoc($result))
 		{
 			//username, entry, date, time
-			 $item["username"] = $result["username"];
-			 $item["entry"] = $result["entry"];
-			 $item["date"] = $result["date"];
-			 $item["time"] = $result["time"];
+			 $item["username"] = $row["username"];
+			 $item["entry"] = $row["entry"];
+			 $item["date"] = $row["date"];
+			 $item["time"] = $row["time"];
 	 
 		}
 	}

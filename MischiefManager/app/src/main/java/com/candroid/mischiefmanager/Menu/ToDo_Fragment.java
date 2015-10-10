@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -39,10 +40,11 @@ public class ToDo_Fragment extends Fragment{
     AdapterView.OnItemClickListener d;
     UserLocalStore current;
     User loggedInUser;
-    String jsonResult;
+   // String jsonResult;
     private static String url_all_items = "http://localhost/android/display_todo_list.php";
     ArrayList<HashMap<String, String>> itemList;
-    JSONArray products = null;
+    JSONArray items = null;
+    TextView date, time;
 
     //@Nullable
     @Override
