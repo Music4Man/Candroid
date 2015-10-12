@@ -66,6 +66,7 @@ public class TaskAdd_Fragment extends Fragment
 
          d = (DatePicker) rootview.findViewById(R.id.datePicker);
         t = (TimePicker) rootview.findViewById(R.id.timePicker);
+        t.setIs24HourView(true);
 
 
 

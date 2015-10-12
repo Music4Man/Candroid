@@ -1,29 +1,34 @@
 package com.candroid.mischiefmanager.Menu;
 
-import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import com.candroid.mischiefmanager.Login.User;
 import com.candroid.mischiefmanager.Login.UserLocalStore;
 import com.candroid.mischiefmanager.R;
 import com.candroid.mischiefmanager.db.JSONParser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -33,10 +38,8 @@ public class Edit_todo_item extends Fragment
 {
 
     View rootview;
-    //EditText task;
-
-    private static String url_fetch_item = "http://localhost/android/edit_todo_item.php";
-    private static String url_update_item = "http://localhost/android/update_todo_item.php";
+    //EditText task
+    private static String url_update_item = "http://imy.up.ac.za/Candroid/update_todo_item.php";
     JSONParser jsonParser = new JSONParser();
     EditText entry;
     Date date;
@@ -47,6 +50,10 @@ public class Edit_todo_item extends Fragment
     String userDetails;
     Button btnSave;
     Button btnCancel;
+    Date datetime;
+    Date tDate;
+    String updatedDated, updEntry, updTime;
+    String entryText;
 
     // JSON Node names
     private static final String TAG_ITEMS = "items";
@@ -65,7 +72,37 @@ public class Edit_todo_item extends Fragment
         loggedInUser = current.getLoggedInUser();
         userDetails = loggedInUser.getUserDetails().get(3);
 
+        entryText = getArguments().getString("entry");
+        String iniDateTime = getArguments().getString("date")+" "+getArguments().getString("time");
+
         entry = (EditText) rootview.findViewById(R.id.actual_task);
+        entry.setText(entryText);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+
+        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        try
+        {
+            datetime = formatter.parse(iniDateTime);
+            tDate = formatter2.parse(getArguments().getString("date"));
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+
+        final TimePicker timePicker = (TimePicker) rootview.findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
+        timePicker.setHour(datetime.getHours());
+        timePicker.setMinute(datetime.getMinutes());
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(tDate);
+
+        final DatePicker datePicker = (DatePicker) rootview.findViewById(R.id.datePicker);
+        datePicker.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), null);
+
+
 
         btnSave = (Button) rootview.findViewById(R.id.save_changes);
         btnCancel = (Button) rootview.findViewById(R.id.cancel);
@@ -79,6 +116,48 @@ public class Edit_todo_item extends Fragment
             @Override
             public void onClick(View arg0) {
                 // starting background task to update product
+
+
+                if (datePicker.getMonth()<10 && datePicker.getDayOfMonth()<10)
+                {
+                    updatedDated = String.valueOf(datePicker.getYear())+ "-0" +String.valueOf(datePicker.getMonth()) + "-0" + String.valueOf(datePicker.getDayOfMonth());
+                }
+                else
+                if (datePicker.getMonth()<10)
+                {
+                    updatedDated = String.valueOf(datePicker.getYear())+ "-0" +String.valueOf(datePicker.getMonth()) + "-" + String.valueOf(datePicker.getDayOfMonth());
+                }
+                else
+                if (datePicker.getDayOfMonth()<10)
+                {
+                    updatedDated = String.valueOf(datePicker.getYear())+ "-" +String.valueOf(datePicker.getMonth()) + "-0" + String.valueOf(datePicker.getDayOfMonth());
+                }
+                else
+                {
+
+                    updatedDated = String.valueOf(datePicker.getYear())+ "-" +String.valueOf(datePicker.getMonth()) + "-" + String.valueOf(datePicker.getDayOfMonth());
+                }
+
+                String.valueOf(datePicker.getDayOfMonth());
+
+                updEntry = entry.getText().toString();
+
+                updTime="";
+                if (timePicker.getHour()<10)
+                    updTime += "0";
+
+                updTime+=String.valueOf(timePicker.getHour())+":";
+
+                if(timePicker.getMinute() < 10)
+                    updTime+= "0";
+
+                updTime+= String.valueOf(timePicker.getMinute());
+
+                Log.d("MainActivity", "Time" + updTime);
+                Log.d("MainActivity", "Date"+updatedDated);
+
+
+
                 new SaveItemDetails().execute();
             }
         });
@@ -90,68 +169,19 @@ public class Edit_todo_item extends Fragment
             @Override
             public void onClick(View arg0)
             {
-               /* ToDo_Fragment obj = new ToDo_Fragment();
+                ToDo_Fragment obj = new ToDo_Fragment();
 
                 FragmentManager fragmentManager = getFragmentManager();//getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, obj)
-                        .commit();*/
+                        .commit();
 
             }
         });
 
-        String entryText = getArguments().getString("entry");
+
 
         return rootview;
-    }
-
-
-    class GetItemDetails extends AsyncTask<String, String, String> {
-
-        /**
-         * Before starting background thread Show Progress Dialog
-         */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            fetch = new ProgressDialog(getActivity());
-            fetch.setMessage("Loading product details. Please wait...");
-            fetch.setIndeterminate(false);
-            fetch.setCancelable(true);
-            //pDialog.show();
-        }
-
-        protected String doInBackground(String... params)
-        {
-           /* List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("pid", pid));
-
-            JSONObject json = jsonParser.makeHttpRequest(
-                    url_product_detials, "GET", params);
-
-            Log.d("Single Product Details", json.toString());
-
-            try
-            {
-                JSONArray productObj = json.getJSONArray(TAG_ITEMS);
-                JSONObject product = productObj.getJSONObject(0);
-
-                txtName = (EditText) findViewById(R.id.inputName);
-                txtPrice = (EditText) findViewById(R.id.inputPrice);
-                txtDesc = (EditText) findViewById(R.id.inputDesc);
-
-                // display product data in EditText
-                txtName.setText(product.getString(TAG_NAME));
-                txtPrice.setText(product.getString(TAG_PRICE));
-                txtDesc.setText(product.getString(TAG_DESCRIPTION));
-            }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }*/
-
-            return null;
-        }
     }
 
 
@@ -175,24 +205,16 @@ public class Edit_todo_item extends Fragment
          * */
         protected String doInBackground(String... args) {
 
-            // getting updated data from EditTexts
-            /*String name = txtName.getText().toString();
-            String price = txtPrice.getText().toString();
-            String description = txtDesc.getText().toString();
+            try {
+                url_update_item+="?username="+ URLEncoder.encode(userDetails, "UTF-8")+"&entry="+URLEncoder.encode(updEntry, "UTF-8") +"&date="+URLEncoder.encode(updatedDated, "UTF-8") +"&time="+URLEncoder.encode(updTime, "UTF-8")+"&oldEntry="+URLEncoder.encode(entryText, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
-            // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair(TAG_PID, pid));
-            params.add(new BasicNameValuePair(TAG_NAME, name));
-            params.add(new BasicNameValuePair(TAG_PRICE, price));
-            params.add(new BasicNameValuePair(TAG_DESCRIPTION, description));
+            Log.d("serverError", url_update_item);
+            JSONObject json = jsonParser.makeHttpRequest(url_update_item, "GET");
 
-            // sending modified data through http request
-            // Notice that update product url accepts POST method
-            JSONObject json = jsonParser.makeHttpRequest(url_update_product,
-                    "POST", params);
 
-            */
 
             return null;
         }
@@ -204,6 +226,14 @@ public class Edit_todo_item extends Fragment
         {
             // dismiss the dialog once item updated
            fetch.dismiss();
+
+            ToDo_Fragment obj = new ToDo_Fragment();
+
+            FragmentManager fragmentManager = getFragmentManager();//getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, obj)
+                    .commit();
+
         }
     }
 }

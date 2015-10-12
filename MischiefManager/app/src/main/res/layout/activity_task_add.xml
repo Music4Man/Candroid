@@ -62,7 +62,8 @@
                 android:padding="0dp"
                 android:amPmBackgroundColor="#000000"
                 android:amPmTextColor="#FFFFFF"
-                android:layoutMode="clipBounds" />
+                android:layoutMode="clipBounds"
+                />
 
 
             <DatePicker

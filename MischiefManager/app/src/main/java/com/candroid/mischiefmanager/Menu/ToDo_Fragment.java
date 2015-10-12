@@ -158,8 +158,15 @@ public class ToDo_Fragment extends Fragment{
                             TextView vi = (TextView) view.findViewById(R.id.JournalTitle);
                             task = vi.getText().toString();
 
+                            TextView d = (TextView) view.findViewById(R.id.date);
+                            String date = d.getText().toString();
+                            TextView t = (TextView) view.findViewById(R.id.time);
+                            String time = t.getText().toString();
+
                             Bundle bundle = new Bundle();
                             bundle.putString("entry", task);
+                            bundle.putString("date", date);
+                            bundle.putString("time", time);
 
                             Fragment objFragment = new Edit_todo_item();
                             objFragment.setArguments(bundle);
