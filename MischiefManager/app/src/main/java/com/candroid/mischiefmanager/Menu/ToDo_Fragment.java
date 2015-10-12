@@ -25,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -273,7 +275,12 @@ public class ToDo_Fragment extends Fragment{
             // Building Parameters
 
             // getting product details by making HTTP request
-            url_delete_item+="?username="+userDetails+"&entry="+task;
+            try {
+                url_delete_item+="?username="+ URLEncoder.encode(userDetails, "UTF-8")+"&entry="+URLEncoder.encode(task, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            Log.d("serverError", url_delete_item);
             JSONObject json = jParser.makeHttpRequest(url_delete_item, "GET");
 
             // check your log for json response
