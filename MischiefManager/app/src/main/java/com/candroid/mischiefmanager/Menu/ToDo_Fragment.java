@@ -70,7 +70,11 @@ public class ToDo_Fragment extends Fragment{
 
         loggedInUser = current.getLoggedInUser();
         userDetails = loggedInUser.getUserDetails().get(3);
-        url_all_items+= userDetails;
+        try {
+            url_all_items = "http://imy.up.ac.za/Candroid/display_todo_list.php?username="+URLEncoder.encode(userDetails, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         itemList = new ArrayList<>();
 
@@ -194,6 +198,7 @@ public class ToDo_Fragment extends Fragment{
             {
                 items = json.getJSONArray(TAG_ITEMS);
 
+Log.d("serverError", String.valueOf(url_all_items));
                 for ( int index = 0; index < items.length(); index++)
                 {
                     JSONObject c = items.getJSONObject(index);
@@ -280,7 +285,9 @@ public class ToDo_Fragment extends Fragment{
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
+
             Log.d("serverError", url_delete_item);
+
             JSONObject json = jParser.makeHttpRequest(url_delete_item, "GET");
 
             // check your log for json response
