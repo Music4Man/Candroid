@@ -70,7 +70,7 @@ public class ToDo_Fragment extends Fragment{
 
         loggedInUser = current.getLoggedInUser();
         userDetails = loggedInUser.getUserDetails().get(3);
-        url_all_items+= userDetails;
+        //url_all_items+= userDetails;
 
         itemList = new ArrayList<>();
 

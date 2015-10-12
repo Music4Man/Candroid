@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import com.candroid.mischiefmanager.Login.User;
 import com.candroid.mischiefmanager.Login.UserLocalStore;
@@ -23,8 +25,8 @@ import com.candroid.mischiefmanager.db.TaskDBHelper;
 
 import org.json.JSONObject;
 
-import java.sql.Time;
-import java.util.Date;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Created by Firdous on 2015-09-28.
@@ -35,15 +37,18 @@ public class TaskAdd_Fragment extends Fragment
     private TaskDBHelper helper;
     EditText task;
    // String jsonResult;
-    private static String url_add = "http://localhost/android/add_todo_item.php";
+    private static String url_add = "http://imy.up.ac.za/Candroid/add_todo_item.php";
     JSONParser jsonParser = new JSONParser();
-    EditText entry;
-    Date date;
-    Time time;
+    EditText e;
+    String entry;
+    String date;
+    String time;
     UserLocalStore current;
     User loggedInUser;
     ProgressDialog create;
     String userDetails;
+    DatePicker d;
+    TimePicker t;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -52,13 +57,16 @@ public class TaskAdd_Fragment extends Fragment
         task = (EditText) rootview.findViewById(R.id.actual_task);
 
         current = new UserLocalStore(getContext());
-
         loggedInUser = current.getLoggedInUser();
         userDetails = loggedInUser.getUserDetails().get(3);
 
-        entry = (EditText) rootview.findViewById(R.id.actual_task);
+        e = (EditText) rootview.findViewById(R.id.actual_task);
        // date = (Date) rootview.findViewById((R.id.datePicker);
        // time.setTime(rootview.findViewById(( R.id.timePicker)));
+
+         d = (DatePicker) rootview.findViewById(R.id.datePicker);
+        t = (TimePicker) rootview.findViewById(R.id.timePicker);
+
 
 
 
@@ -74,7 +82,46 @@ public class TaskAdd_Fragment extends Fragment
                 switch (v.getId()) {
                     case R.id.add_task:
                          //onAddClick(v);
-                        //CreateNewItem().execute();
+
+                        if (d.getMonth()<10 && d.getDayOfMonth()<10)
+                        {
+                            date = String.valueOf(d.getYear())+ "-0" +String.valueOf(d.getMonth()) + "-0" + String.valueOf(d.getDayOfMonth());
+                        }
+                        else
+                        if (d.getMonth()<10)
+                        {
+                            date = String.valueOf(d.getYear())+ "-0" +String.valueOf(d.getMonth()) + "-" + String.valueOf(d.getDayOfMonth());
+                        }
+                        else
+                        if (d.getDayOfMonth()<10)
+                        {
+                            date = String.valueOf(d.getYear())+ "-" +String.valueOf(d.getMonth()) + "-0" + String.valueOf(d.getDayOfMonth());
+                        }
+                        else
+                        {
+
+                            date = String.valueOf(d.getYear())+ "-" +String.valueOf(d.getMonth()) + "-" + String.valueOf(d.getDayOfMonth());
+                        }
+
+                        String.valueOf(d.getDayOfMonth());
+
+                        entry = e.getText().toString();
+
+                        time="";
+                        if (t.getHour()<10)
+                            time += "0";
+
+                             time+=String.valueOf(t.getHour())+":";
+
+                        if(t.getMinute() < 10)
+                            time+= "0";
+
+                        time+= String.valueOf(t.getMinute());
+
+                        Log.d("MainActivity", "Time"+time);
+                        Log.d("MainActivity", "Date"+date);
+
+                        new CreateNewItem().execute();
                         break;
                 }
             }
@@ -129,34 +176,20 @@ public class TaskAdd_Fragment extends Fragment
             create.show();
         }
 
-        protected String doInBackground(String... args) {
+        protected String doInBackground(String... args)
+        {
            // String en = entry.getText().toString();
-            String d = date.toString();
-            String t = time.toString();
-
-            // Building Parameters
-            /*List<NameValuePair> params = new ArrayList<NameValuePair>();
-           // params.add(new BasicNameValuePair("entry", en));
-            params.add(new BasicNameValuePair("date", d));
-            params.add(new BasicNameValuePair("time", t));
-            params.add(new BasicNameValuePair("username", userDetails));*/
-
-            // getting JSON Object
-            // Note that create product url accepts POST method
-            JSONObject json = jsonParser.makeHttpRequest(url_add, "POST");
-
-            // check log cat fro response
-            Log.d("Create Response", json.toString());
 
 
+            try {
+                url_add+="?username="+ URLEncoder.encode(userDetails, "UTF-8")+"&entry="+URLEncoder.encode(entry, "UTF-8") +"&date="+URLEncoder.encode(date, "UTF-8") +"&time="+URLEncoder.encode(time, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
+            Log.d("serverError", url_add);
+            JSONObject json = jsonParser.makeHttpRequest(url_add, "GET");
 
-                    ToDo_Fragment obj = new ToDo_Fragment();
-
-                    FragmentManager fragmentManager = getFragmentManager();//getSupportFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.container, obj)
-                            .commit();
 
 
             return null;
@@ -166,6 +199,13 @@ public class TaskAdd_Fragment extends Fragment
         {
             // dismiss the dialog once done
             create.dismiss();
+
+            ToDo_Fragment obj = new ToDo_Fragment();
+
+            FragmentManager fragmentManager = getFragmentManager();//getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, obj)
+                    .commit();
         }
 
 
