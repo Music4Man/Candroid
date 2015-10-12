@@ -38,7 +38,10 @@
 
 	mysqli_query($con, "UPDATE Users SET Name = '$name', Surname = '$surname', Age = '$age', EvilNickname = '$nickname', Email = '$email', Password = '$password' WHERE EvilNickname = '$originalNickName' AND Password = '$oldPassword'");
 	
-	if (mysqli_affected_rows($con) != 0) {
+	if (mysqli_affected_rows($con) != 0) 
+	{
+		mysqli_query($con, "UPDATE ToDo SET username = '$nickname' WHERE username = '$originalNickName'");
+
 
 		$result = mysqli_query($con, "SELECT * FROM Users WHERE BINARY EvilNickname = BINARY '" . $nickname . "' AND BINARY Password = BINARY '" . $password . "'");
 		 
