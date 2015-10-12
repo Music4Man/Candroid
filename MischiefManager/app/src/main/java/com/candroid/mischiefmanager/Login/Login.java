@@ -20,7 +20,7 @@ import com.candroid.mischiefmanager.ToDo;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
-    Button loginButton, skipLogin;
+    Button loginButton;
     EditText editNickname, editPassword;
     TextView registerLink;
     public UserLocalStore userLocalStore;
@@ -33,11 +33,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         editNickname = (EditText) findViewById(R.id.editNickname);
         editPassword = (EditText) findViewById(R.id.editPassword);
         loginButton = (Button) findViewById(R.id.login);
-        skipLogin = (Button) findViewById(R.id.SkipLogin);
         registerLink = (TextView) findViewById(R.id.registerLink);
 
         loginButton.setOnClickListener(this);
-        skipLogin.setOnClickListener(this);
         registerLink.setOnClickListener(this);
 
         userLocalStore = new UserLocalStore(this);
@@ -92,10 +90,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             case R.id.registerLink:
                 startActivity(new Intent(this, Register.class));
-                break;
-
-            case R.id.SkipLogin:
-                startActivity(new Intent(this, Nav.class));
                 break;
         }
     }
