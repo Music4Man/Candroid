@@ -1,12 +1,9 @@
 package com.candroid.mischiefmanager.Menu;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +13,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.candroid.mischiefmanager.Callendar;
 import com.candroid.mischiefmanager.Login.User;
 import com.candroid.mischiefmanager.Login.UserLocalStore;
 import com.candroid.mischiefmanager.R;
@@ -164,7 +160,7 @@ public class Callendar_Fragment extends Fragment{
             ListAdapter adapter = new SimpleAdapter(
                     getActivity(), itemList,
                     R.layout.task_view, new String[] { TAG_entry, TAG_DATE, TAG_TIME},
-                    new int[] { R.id.taskTextView, R.id.date, R.id.time });
+                    new int[] { R.id.JournalTitle, R.id.date, R.id.time });
             // updating listview
 
             myList.setAdapter(adapter);

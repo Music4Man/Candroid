@@ -1,26 +1,13 @@
 package com.candroid.mischiefmanager;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.ContentValues;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
-import com.candroid.mischiefmanager.Login.Login;
-import com.candroid.mischiefmanager.Login.Register;
-import com.candroid.mischiefmanager.Login.User;
 import com.candroid.mischiefmanager.db.TaskContract;
 import com.candroid.mischiefmanager.db.TaskDBHelper;
 
@@ -50,7 +37,7 @@ public class ToDo extends ListActivity {
                 R.layout.task_view,
                 cursor,
                 new String[]{TaskContract.Columns.TASK},
-                new int[]{R.id.taskTextView},
+                new int[]{R.id.JournalTitle},
                 0
         );
         this.setListAdapter(listAdapter);

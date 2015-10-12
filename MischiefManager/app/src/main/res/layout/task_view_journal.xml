@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="Title"
         android:id="@+id/JournalTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Done"
+        android:text="Delete"
         android:id="@+id/deleteBtn"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Complete by: "
+        android:text="Last updated: "
         android:layout_below="@+id/JournalTitle"
         android:id="@+id/LastUpdate"
         />
@@ -49,23 +49,13 @@
         android:layout_toRightOf="@+id/LastUpdate"
         android:layout_toEndOf="@+id/LastUpdate" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="time"
-        android:id="@+id/time"
-        android:layout_below="@+id/LastUpdate"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit"
-        android:id="@+id/edit"
+        android:id="@+id/editBtn"
         android:focusable="false"
         android:visibility="invisible"
-        android:layout_alignBottom="@+id/time"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/JournalTitle" />

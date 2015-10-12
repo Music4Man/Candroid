@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Frank on 2015-09-20.
@@ -119,7 +117,7 @@ public class ToDo_Fragment extends Fragment{
             {
                 Log.d("MainActivity", "Inside");
 
-                Button done =  (Button) view.findViewById(R.id.doneButton);
+                Button done =  (Button) view.findViewById(R.id.deleteBtn);
                 Button edit =  (Button) view.findViewById(R.id.edit);
 
                 if(done.getVisibility() == View.VISIBLE)
@@ -145,7 +143,7 @@ public class ToDo_Fragment extends Fragment{
 
                             Log.d("MainActivity", "Inside Done");
                             //
-                           TextView vi = (TextView) view.findViewById(R.id.taskTextView);
+                           TextView vi = (TextView) view.findViewById(R.id.JournalTitle);
                             task = vi.getText().toString();
                             Log.d("MainActivity", task);
                             new ItemDone().execute();
@@ -157,7 +155,7 @@ public class ToDo_Fragment extends Fragment{
 
                         @Override
                         public void onClick(View v) {
-                            TextView vi = (TextView) view.findViewById(R.id.taskTextView);
+                            TextView vi = (TextView) view.findViewById(R.id.JournalTitle);
                             task = vi.getText().toString();
 
                             Bundle bundle = new Bundle();
@@ -264,7 +262,7 @@ public class ToDo_Fragment extends Fragment{
                     ListAdapter adapter = new SimpleAdapter(
                             getActivity(), itemList,
                             R.layout.task_view, new String[] { TAG_entry, TAG_DATE, TAG_TIME},
-                            new int[] { R.id.taskTextView, R.id.date, R.id.time });
+                            new int[] { R.id.JournalTitle, R.id.date, R.id.time });
                     // updating listview
 
                    myList.setAdapter(adapter);
