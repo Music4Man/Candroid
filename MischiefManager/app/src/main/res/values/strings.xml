@@ -27,7 +27,7 @@
     <string name="Surname">Surname</string>
     <string name="Age">Age</string>
     <string name="Email">Email</string>
-    <string name="Licence">Licence Agreement Here...</string>
+    <string name="Licence">You hereby accept our licesence disagreement. You also pledge youre allegiance to Candroid and all the EVIL we have in store. PS Your phone will self destruct at random instances of the app crashing...</string>
     <string name="Agree">Agree to Licence Agreement</string>
     <string name="RegisterButton">Register</string>
     <string name="updateProfile">Update Profile</string>
@@ -35,14 +35,13 @@
     <string name="back_to_login">Back to login</string>
     <string name="oldPassword">Current Password</string>
 
-    <string name="title_section1">Journal</string>
-    <string name="title_section2">Selfie Manager</string>
-    <string name="title_section3">To Do</string>
-    <string name="title_section4">Calendar</string>
-    <string name="title_section5">Map</string>
-    <string name="title_section6">Weather</string>
-    <string name="title_section7">Manage Profile</string>
-    <string name="title_section8">Logout</string>
+    <string name="title_section3">Selfie Manager</string>
+    <string name="title_section2">To Do</string>
+    <string name="title_section1">Calendar</string>
+    <string name="title_section4">Map</string>
+    <string name="title_section5">Weather</string>
+    <string name="title_section6">Manage Profile</string>
+    <string name="title_section7">Logout</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -53,12 +52,12 @@
     <string name="title_activity_weather">Weather</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="condition" />
-    <string name="location" />
+    <string name="condition">Mostly Cloudy</string>
+    <string name="location">Hatfield, Pretoria</string>
     <string name="powered_by_yahoo" />
-    <string name="temperature" />
-    <string name="condition_icon" />
-    <string name="loading" />
+    <string name="temperature">33°C</string>
+    <string name="condition_icon">Condition Icon</string>
+    <string name="loading">Loading Weather...</string>
     <string name="temperature_output" />
 
 </resources>

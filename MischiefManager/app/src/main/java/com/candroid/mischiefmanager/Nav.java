@@ -59,27 +59,24 @@ public class Nav extends AppCompatActivity
 
         switch (position){
             case 0:
-                objFragment = new Journal_Fragment();
+                objFragment =  new Callendar_Fragment();
                 break;
             case 1:
-                objFragment =  new Selfie_Fragment();
-                break;
-            case 2:
                 objFragment = new ToDo_Fragment();
                 break;
-            case 3:
-                objFragment = new Callendar_Fragment();
+            case 2:
+                objFragment = new Selfie_Fragment();
                 break;
-            case 4:
+            case 3:
                 objFragment = new MapsActivity_Fragment();
                 break;
-            case 5:
+            case 4:
                 objFragment = new Weather_Fragment();
                 break;
-            case 6:
+            case 5:
                 objFragment = new ManageProfile_Fragment();
                 break;
-            case 7:
+            case 6:
                 UserLocalStore userLocalStore;
                 userLocalStore = new UserLocalStore(this);
 
@@ -117,9 +114,6 @@ public class Nav extends AppCompatActivity
                 mTitle = getString(R.string.title_section6);
                 break;
             case 7:
-                mTitle = getString(R.string.title_section7);
-                break;
-            case 8:
                 mTitle = getString(R.string.title_section7);
                 break;
         }
