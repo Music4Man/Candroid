@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ public class ToDo_Fragment extends Fragment{
     User loggedInUser;
     String userDetails;
     String task;
+
    // String jsonResult;
     private static String url_all_items = "http://imy.up.ac.za/Candroid/display_todo_list.php?username=";
     private static String url_delete_item = "http://imy.up.ac.za/Candroid/delete_todo_item.php";
@@ -139,7 +141,7 @@ public class ToDo_Fragment extends Fragment{
                         @Override
                         public void onClick(View v) {
 
-                            Log.d("MainActivity", "Inside");
+                            Log.d("MainActivity", "Inside Done");
                             //
                            TextView vi = (TextView) view.findViewById(R.id.taskTextView);
                             task = vi.getText().toString();
@@ -153,8 +155,23 @@ public class ToDo_Fragment extends Fragment{
 
                         @Override
                         public void onClick(View v) {
+                            TextView vi = (TextView) view.findViewById(R.id.taskTextView);
+                            task = vi.getText().toString();
 
-                            Log.d("MainActivity", "Inside2");
+                            Bundle bundle = new Bundle();
+                            bundle.putString("entry", task);
+
+                            Fragment objFragment = new Edit_todo_item();
+                            objFragment.setArguments(bundle);
+
+                           // TaskAdd_Fragment obj = new TaskAdd_Fragment();
+
+                            FragmentManager fragmentManager = getFragmentManager();//getSupportFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.container, objFragment)
+                                    .commit();
+
+                            Log.d("MainActivity", "Inside Edit");
 
                         }
                     });
@@ -198,7 +215,7 @@ public class ToDo_Fragment extends Fragment{
             {
                 items = json.getJSONArray(TAG_ITEMS);
 
-Log.d("serverError", String.valueOf(url_all_items));
+                Log.d("serverError", String.valueOf(url_all_items));
                 for ( int index = 0; index < items.length(); index++)
                 {
                     JSONObject c = items.getJSONObject(index);

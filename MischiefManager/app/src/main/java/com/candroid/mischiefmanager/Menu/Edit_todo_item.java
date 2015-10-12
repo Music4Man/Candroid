@@ -1,6 +1,6 @@
 package com.candroid.mischiefmanager.Menu;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -56,22 +56,21 @@ public class Edit_todo_item extends Fragment
     private static final String TAG_TIME = "time";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         rootview = inflater.inflate(R.layout.activity_edit_item, container, false);
         //task = (EditText) rootview.findViewById(R.id.actual_task);
 
-        //current = new UserLocalStore(getContext());
+        current = new UserLocalStore(getContext());
 
         loggedInUser = current.getLoggedInUser();
         userDetails = loggedInUser.getUserDetails().get(3);
 
         entry = (EditText) rootview.findViewById(R.id.actual_task);
-        //date = (Date) rootview.findViewById(R.id.datePicker);
-       // time.setTime(rootview.findViewById(( R.id.timePicker)));
 
         btnSave = (Button) rootview.findViewById(R.id.save_changes);
         btnCancel = (Button) rootview.findViewById(R.id.cancel);
 
-        new GetItemDetails().execute();
+      //  new GetItemDetails().execute();
 
 
         btnSave.setOnClickListener(new View.OnClickListener()
@@ -101,6 +100,7 @@ public class Edit_todo_item extends Fragment
             }
         });
 
+        String entryText = getArguments().getString("entry");
 
         return rootview;
     }
