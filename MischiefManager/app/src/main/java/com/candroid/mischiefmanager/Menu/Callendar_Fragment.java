@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 
 import com.candroid.mischiefmanager.R;
 
@@ -14,10 +15,13 @@ import com.candroid.mischiefmanager.R;
  */
 public class Callendar_Fragment extends Fragment{
     View rootview;
+    CalendarView view;
+    String user;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.activity_callendar, container, false);
         return rootview;
+       // ShowToDo(user, view.getDate());
     }
 }
