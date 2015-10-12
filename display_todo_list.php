@@ -1,6 +1,7 @@
 <?php
 	
 	$con = mysqli_connect("localhost", "Candroid", "kmTYHA6q", "Candroid");
+	//$con = mysqli_connect("localhost", "root", "", "candroid");
 
 	if(mysqli_connect_errno()){
 		echo "Failed to connect: ".mysqli_connect_error();
@@ -13,21 +14,26 @@
 	}
 	
 	
-	$result = mysqli_query($con, "SELECT * FROM ToDo where username = $user ORDER BY date DESC, time DESC");
+	$result = mysqli_query($con, "SELECT * FROM ToDo where username = '$user' ORDER BY date DESC, time DESC");
 	
 	
-
-	$item = array();
+	$response["items"] = array();
 	
-	if(mysqli_num_rows($result) > 0){
+	
+	if(mysqli_num_rows($result) > 0)
+	{
+		
+		
 		while($row = mysqli_fetch_assoc($result))
 		{
+			$item = array();
 			//username, entry, date, time
 			 $item["username"] = $row["username"];
 			 $item["entry"] = $row["entry"];
 			 $item["date"] = $row["date"];
 			 $item["time"] = $row["time"];
-	 
+			
+			array_push($response["items"], $item);
 		}
 	}
 	
@@ -37,5 +43,5 @@
 	 mysqli_close($con);
 	 
 
-	echo json_encode($item); 
+	echo json_encode($response); 
 ?>

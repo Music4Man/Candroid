@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
-		<?php
-			$con = mysqli_connect("localhost", "Candroid", "kmTYHA6q", "Candroid");
-			//$con = mysqli_connect("localhost", "root", "", "Candroid");
-
-			if(mysqli_connect_errno())
-			{
-				echo "Failed to connect: ".mysqli_connect_error();
-			}
-		?>
-		<title>ToDoList</title>
+		<?php	
+			$pageTitle = "To Do List";
+			include "head.php";
+		?>	
 	</head>
-
 	<body>
-		
-		<header>
 		<?php include "menu.php"; ?>
-			<h1>To Do List</h1>
-		</header>
+		<h1 class="col-xs-offset-4 vert-offset-top-2">Mischief Manager</h1>
+		<h2>Todo</h2>
+		
+		
 		
 		<section>
 			<div id="products">
 				<?php
 				//current URL of the Page.
 				$current_url = base64_encode("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+				
+				$nickname = $_SESSION['nickname'];
 				    
-				    $result = mysqli_query($con, "SELECT * FROM ToDo where username = 'FireStorm' ORDER BY date DESC, time DESC");
+				    $result = mysqli_query($con, "SELECT * FROM ToDo where username = '$nickname' ORDER BY date DESC, time DESC");
 	
 	
 
@@ -38,7 +32,7 @@
 						{
 							
 							 echo '<div class="item">'; 
-							  echo '<div class="item_todo"><h3 name="h">'.$row["entry"].'</h3>';
+							  echo '<div class="item_todo"><h4 name="h">'.$row["entry"].'</h4>';
 							    echo '<div class="item_date">Complete by: '.$row["date"].'</div>';
 							    echo '<br><div class="item_time">At: '.$row["time"].'</div>';
 							    echo '</div><hr>';

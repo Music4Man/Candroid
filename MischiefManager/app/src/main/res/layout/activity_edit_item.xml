@@ -66,24 +66,24 @@
 
 
             <DatePicker
-                 android:layout_width="340dp"
-                 android:layout_height="121dp"
-                 android:id="@+id/datePicker"
-                 android:datePickerMode="spinner"
-                 android:calendarViewShown="false"
-                 android:layout_alignParentBottom="true"
-                 android:layout_alignRight="@+id/timePicker"
-                 android:layout_alignEnd="@+id/timePicker"
-                 android:layout_marginBottom="26dp"
+                android:layout_width="340dp"
+                android:layout_height="121dp"
+                android:id="@+id/datePicker"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/timePicker"
+                android:layout_alignEnd="@+id/timePicker"
+                android:layout_marginBottom="26dp"
                 android:layout_marginLeft="10dp"
 
-                 />
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="for complete domination!!!"
+                android:text="change needed for domination!!!"
                 android:id="@+id/textView4"
                 android:layout_gravity="center_horizontal"
 
@@ -92,8 +92,18 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Task"
-                android:id="@+id/add_task"
+                android:text="Save"
+                android:id="@+id/save_changes"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_alignBottom="@+id/scrollView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:id="@+id/cancel"
 
                 android:layout_gravity="center_horizontal"
                 android:layout_alignBottom="@+id/scrollView"

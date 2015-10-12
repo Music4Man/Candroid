@@ -9,12 +9,13 @@
 
 	$response = array();
 	
-	if (isset($_POST["entry"]))
+	if (isset($_GET["entry"]) && isset($_GET["username"]))
 	{
-		$entry = $_POST["entry"];
+		$entry = $_GET["entry"];
+		$user = $_GET["username"];
 	}
 	
-	$result = mysqli_query($con, "DELETE FROM products WHERE entry = $entry");
+	$result = mysqli_query($con, "DELETE FROM ToDo WHERE entry = '$entry' and username='$user'");
 	
-
+	mysqli_close($con);
 ?>

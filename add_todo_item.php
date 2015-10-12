@@ -6,12 +6,12 @@
 		echo "Failed to connect: ".mysqli_connect_error();
 	}
 	
-	if(isset ($_POST["username"]) && isset ($_POST["entry"]) && isset ($_POST["date"]) && isset ($_POST["time"]))
+	if(isset ($_GET["username"]) && isset ($_GET["entry"]) && isset ($_GET["date"]) && isset ($_GET["time"]))
 	{
-		$user = $_POST["username"];
-		$entry = $_POST["entry"];
-		$date = $_POST["date"];
-		$time = $_POST["time"];
+		$user = $_GET["username"];
+		$entry = $_GET["entry"];
+		$date = $_GET["date"];
+		$time = $_GET["time"];
 		
 		mysqli_query($con, "INSERT INTO ToDo (username, entry, date, time) VALUES ('$user', '$entry', '$date', '$time')");
 

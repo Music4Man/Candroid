@@ -1,18 +1,18 @@
 <?php
 	$con = mysqli_connect("localhost", "Candroid", "kmTYHA6q", "Candroid");
 
-	if(isset ($_POST["username"]) && isset ($_POST["entry"]) && isset ($_POST["date"]) && isset ($_POST["time"]))
+	if(isset ($_GET["username"]) && isset ($_GET["entry"]) && isset ($_GET["date"]) && isset ($_GET["time"]))
 	{
-		$user = $_POST["username"];
-		$oldEntry = $_POST["oldEntry"];
-		$entry = $_POST["entry"];
-		$date = $_POST["date"];
-		$time = $_POST["time"];
+		$user = $_GET["username"];
+		$oldEntry = $_GET["oldEntry"];
+		$entry = $_GET["entry"];
+		$date = $_GET["date"];
+		$time = $_GET["time"];
 	}
 		
 	$json = array();
 
-	mysqli_query($con, "UPDATE ToDo SET username = '$user', entry = '$entry', date = '$date', time = '$time' WHERE entry = '$oldEntry'");
+	mysqli_query($con, "UPDATE ToDo SET username = '$user', entry = '$entry', date = '$date', time = '$time' WHERE entry = '$oldEntry' AND username = '$user'");
 	
 	mysqli_close($con);
 
