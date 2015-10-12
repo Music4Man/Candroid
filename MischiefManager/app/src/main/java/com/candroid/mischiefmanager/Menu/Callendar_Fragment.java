@@ -86,7 +86,6 @@ public class Callendar_Fragment extends Fragment{
             }
 
             //if(Cview.getDate() != date) {
-                Toast.makeText(view.getContext(), userDetails + dateString, Toast.LENGTH_SHORT).show();
             try {
                 url_all_items += URLEncoder.encode(userDetails,"UTF-8")+"&date="+URLEncoder.encode(dateString,"UTF-8");
             } catch (UnsupportedEncodingException e) {
