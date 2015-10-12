@@ -2,7 +2,6 @@ package com.candroid.mischiefmanager.Menu;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.candroid.mischiefmanager.Login.User;
 import com.candroid.mischiefmanager.Login.UserLocalStore;
@@ -23,15 +21,10 @@ import com.candroid.mischiefmanager.db.JSONParser;
 import com.candroid.mischiefmanager.db.TaskContract;
 import com.candroid.mischiefmanager.db.TaskDBHelper;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Firdous on 2015-09-28.
@@ -142,15 +135,15 @@ public class TaskAdd_Fragment extends Fragment
             String t = time.toString();
 
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            /*List<NameValuePair> params = new ArrayList<NameValuePair>();
            // params.add(new BasicNameValuePair("entry", en));
             params.add(new BasicNameValuePair("date", d));
             params.add(new BasicNameValuePair("time", t));
-            params.add(new BasicNameValuePair("username", userDetails));
+            params.add(new BasicNameValuePair("username", userDetails));*/
 
             // getting JSON Object
             // Note that create product url accepts POST method
-            JSONObject json = jsonParser.makeHttpRequest(url_add, "POST", params);
+            JSONObject json = jsonParser.makeHttpRequest(url_add, "POST");
 
             // check log cat fro response
             Log.d("Create Response", json.toString());
