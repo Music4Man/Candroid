@@ -295,12 +295,15 @@ public class ToDo_Fragment extends Fragment{
             // dismiss the dialog once product deleted
             load.dismiss();
 
-           ToDo_Fragment obj = new ToDo_Fragment();
+           /*ToDo_Fragment obj = new ToDo_Fragment();
 
             FragmentManager fragmentManager = getFragmentManager();//getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, obj)
-                    .commit();
+                    .commit();*/
+            itemList = null;
+            itemList = new ArrayList<>();
+            new LoadAllItems().execute();
 
         }
 
