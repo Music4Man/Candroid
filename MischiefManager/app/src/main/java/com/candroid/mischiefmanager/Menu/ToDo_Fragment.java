@@ -21,7 +21,6 @@ import com.candroid.mischiefmanager.Login.UserLocalStore;
 import com.candroid.mischiefmanager.R;
 import com.candroid.mischiefmanager.db.JSONParser;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -182,12 +181,11 @@ public class ToDo_Fragment extends Fragment{
 
         protected String doInBackground(String... args)
         {
-            List<NameValuePair> params = new ArrayList<>();
 
 
            // params.add((new BasicNameValuePair("username", userDetails)));
 
-            JSONObject json = jParser.makeHttpRequest(url_all_items, "GET", params);
+            JSONObject json = jParser.makeHttpRequest(url_all_items, "GET");
             Log.d("MainActivity", String.valueOf(json));
 
             try
@@ -273,11 +271,10 @@ public class ToDo_Fragment extends Fragment{
 
             // Check for success tag
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<>();
 
             // getting product details by making HTTP request
             url_delete_item+="?username="+userDetails+"&entry="+task;
-            JSONObject json = jParser.makeHttpRequest(url_delete_item, "GET", params);
+            JSONObject json = jParser.makeHttpRequest(url_delete_item, "GET");
 
             // check your log for json response
             Log.d("Delete Product", json.toString());

@@ -6,8 +6,6 @@ package com.candroid.mischiefmanager.db;
 
 import android.util.Log;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,8 +32,7 @@ public class JSONParser {
 
     // function get json from url
     // by making HTTP POST or GET mehtod
-    public JSONObject makeHttpRequest(String u, String method,
-                                      List<NameValuePair> params) {
+    public JSONObject makeHttpRequest(String u, String method) {
 
         HttpURLConnection connection = null;
        try {
@@ -54,21 +51,10 @@ public class JSONParser {
            });
 
            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-          // connection.setRequestProperty("Content-Length", "" + Integer.toString(params.size()));
            connection.setRequestProperty("Content-Language", "en-US");
-
-
-           //connection.setUseCaches(false);
-           //connection.setDoInput(true);
 
             int code = connection.getResponseCode();
            Log.d("serverError", String.valueOf(code));
-          // DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
-           String paramString = URLEncodedUtils.format(params, "utf-8");
-           u += "?" + paramString;
-         //  wr.writeBytes(paramString);
-         //  wr.flush();
-         //  wr.close();
 
 
 
